@@ -68,10 +68,10 @@ sudo ./find_all_keys_macos
 ### 第五步：安装 Python 依赖 & 解密
 
 ```bash
-pip3 install pycryptodome
+pip install pycryptodome
 
 # 首次运行会自动检测微信数据目录并生成 config.json
-python3 decrypt_db.py
+python decrypt_db.py
 ```
 
 解密后的数据库在 `./decrypted/` 目录下。
@@ -82,10 +82,10 @@ python3 decrypt_db.py
 
 ```bash
 # 微信聊天记录导出
-alias wechat-export="python3 <YOUR_CLONE_PATH>/wechat-export-macos/export_chat.py"
+alias wechat-export="python <YOUR_CLONE_PATH>/wechat-export-macos/export_chat.py"
 
 # 微信数据库解密
-alias wechat-decrypt="python3 <YOUR_CLONE_PATH>/wechat-export-macos/decrypt_db.py"
+alias wechat-decrypt="python <YOUR_CLONE_PATH>/wechat-export-macos/decrypt_db.py"
 ```
 
 然后执行 `source ~/.zshrc` 生效。
