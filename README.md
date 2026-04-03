@@ -61,20 +61,37 @@ python3 decrypt_db.py
 
 解密后的数据库在 `./decrypted/` 目录下。
 
-### 第五步：导出聊天记录
+### 第五步：全局命令（可选）
+
+推荐添加到 `~/.zshrc` 或 `~/.bashrc`：
+
+```bash
+# 微信聊天记录导出
+alias wechat-export="python3 /Users/xinhai/Workspace/Project/wechat-export-macos/export_chat.py"
+
+# 微信数据库解密
+alias wechat-decrypt="python3 /Users/xinhai/Workspace/Project/wechat-export-macos/decrypt_db.py"
+```
+
+然后执行 `source ~/.zshrc` 生效。
+
+### 第六步：导出聊天记录
 
 ```bash
 # 列出所有会话（按消息数排序）
-python3 export_chat.py --list
+wechat-export -l
 
-# 导出某个联系人的聊天记录（模糊搜索昵称/备注）
-python3 export_chat.py --name "张三" --output ~/Downloads/张三
+# 导出某个联系人的聊天记录（模糊搜索昵称/备注，默认导出到 ~/Downloads/wechat-export/{联系人名}/）
+wechat-export -n "张三"
+
+# 指定输出目录
+wechat-export -n "张三" -o ~/Downloads/mychat
 
 # 直接指定用户名导出
-python3 export_chat.py --username wxid_xxxxx --output ~/Downloads/output
+wechat-export -u wxid_xxxxx -o ~/Downloads/output
 
 # 指定自己的 wxid（可选，通常自动检测）
-python3 export_chat.py --name "张三" --my-wxid wxid_xxxxx --output ~/Downloads/张三
+wechat-export -n "张三" --my-wxid wxid_xxxxx
 ```
 
 导出文件：

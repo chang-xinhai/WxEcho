@@ -6,11 +6,11 @@ Export chat history with a specific contact or group from decrypted WeChat datab
 Outputs TXT (human-readable), CSV (spreadsheet), and JSON (structured data).
 
 Usage:
-    python3 export_chat.py --name "联系人昵称或备注" --output ./output_dir
-    python3 export_chat.py --name "Chris" --output ~/Downloads/chris
-    python3 export_chat.py --name "工作群" --output ~/Downloads/work_group
-    python3 export_chat.py --list                    # List all conversations
-    python3 export_chat.py --list --top 30           # List top 30 by message count
+    python3 export_chat.py -n "联系人昵称或备注" -o ./output_dir
+    python3 export_chat.py -n "Chris"                 # 默认导出到 ~/Downloads/wechat-export/Chris/
+    python3 export_chat.py -n "工作群"                # 默认导出到 ~/Downloads/wechat-export/工作群/
+    python3 export_chat.py -l                        # 列出所有会话
+    python3 export_chat.py -l --top 30               # 列出前30个会话
 """
 
 import sqlite3
@@ -44,6 +44,11 @@ MSG_TYPES = {
 MEDIA_TYPES = {3, 34, 43, 47}
 
 
+def get_default_output_dir(name):
+    """Get default output directory: ~/Downloads/wechat-export/{name}/"""
+    return os.path.join(os.path.expanduser("~/Downloads/wechat-export"), name)
+
+
 def get_message_dbs():
     """Find all message database files."""
     msg_dir = os.path.join(DECRYPTED_DIR, "message")
@@ -68,27 +73,49 @@ def find_contact(query):
 
 
 def detect_my_wxid():
-    """Auto-detect current user's wxid from session database."""
-    session_db = os.path.join(DECRYPTED_DIR, "session", "session.db")
-    if not os.path.exists(session_db):
+    """Auto-detect current user's wxid by finding the most frequent sender across all messages."""
+    sender_count = {}
+    name2id_cache = {}  # db_path -> {rowid: wxid}
+
+    for db_path in get_message_dbs():
+        conn = sqlite3.connect(db_path)
+        try:
+            # Build name2id mapping for this DB (skip if table doesn't exist)
+            name2id = {}
+            try:
+                for rowid, uname in conn.execute("SELECT rowid, user_name FROM Name2Id"):
+                    name2id[rowid] = uname
+            except Exception:
+                continue  # Skip DBs without Name2Id table
+            name2id_cache[db_path] = name2id
+
+            # Get all tables
+            tables = conn.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'Msg_%'"
+            ).fetchall()
+
+            for (table_name,) in tables:
+                try:
+                    # Count sender frequency (exclude rowid 0 which seems to be empty/null)
+                    rows = conn.execute(f"""
+                        SELECT real_sender_id FROM {table_name}
+                        WHERE real_sender_id IS NOT NULL AND real_sender_id > 0
+                    """).fetchall()
+
+                    for (sender_id,) in rows:
+                        wxid = name2id.get(sender_id, "")
+                        if wxid and wxid.startswith("wxid_"):
+                            sender_count[wxid] = sender_count.get(wxid, 0) + 1
+                except Exception:
+                    continue
+        finally:
+            conn.close()
+
+    if not sender_count:
         return None
-    try:
-        conn = sqlite3.connect(session_db)
-        # The Name2Id table usually has the user's own wxid
-        rows = conn.execute("SELECT user_name FROM Name2Id WHERE user_name LIKE 'wxid_%' LIMIT 10").fetchall()
-        conn.close()
-        # The wxid that appears most frequently as sender across DBs is likely ours
-        # For now, check contact DB for a self-entry
-        contact_conn = sqlite3.connect(CONTACT_DB)
-        self_entry = contact_conn.execute(
-            "SELECT username FROM contact WHERE username LIKE 'wxid_%' AND local_type = 0 LIMIT 1"
-        ).fetchone()
-        contact_conn.close()
-        if self_entry:
-            return self_entry[0]
-    except Exception:
-        pass
-    return None
+
+    # The wxid that appears most frequently as sender is likely the user
+    return max(sender_count.items(), key=lambda x: x[1])[0]
 
 
 def list_conversations(top_n=20):
@@ -280,9 +307,9 @@ def export_chat(contact_username, contact_display_name, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="微信聊天记录导出工具")
-    parser.add_argument("--name", "-n", help="联系人昵称、备注或微信号（模糊搜索）")
-    parser.add_argument("--username", "-u", help="联系人用户名（精确匹配，跳过搜索）")
-    parser.add_argument("--output", "-o", default="./exported", help="导出目录")
+    parser.add_argument("-n", "--name", help="联系人昵称、备注或微信号（模糊搜索）")
+    parser.add_argument("-u", "--username", help="联系人用户名（精确匹配，跳过搜索）")
+    parser.add_argument("-o", "--output", help="导出目录（默认: ~/Downloads/wechat-export/{name}/）")
     parser.add_argument("--list", "-l", action="store_true", help="列出所有会话")
     parser.add_argument("--top", type=int, default=20, help="列出前N个会话（默认20）")
     parser.add_argument("--my-wxid", help="你自己的微信ID（可选，自动检测）")
@@ -309,8 +336,9 @@ def main():
         else:
             username = args.username
             display = args.username
+        output_dir = args.output or get_default_output_dir(display)
         print(f"\n导出: {display} ({username})")
-        export_chat(username, display, args.output)
+        export_chat(username, display, output_dir)
         return
 
     # Search by name
@@ -323,8 +351,9 @@ def main():
     if len(results) == 1:
         username, nick, remark, alias = results[0]
         display = remark if remark else nick
+        output_dir = args.output or get_default_output_dir(display)
         print(f"\n找到联系人: {display} ({username})")
-        export_chat(username, display, args.output)
+        export_chat(username, display, output_dir)
     else:
         print(f"\n找到 {len(results)} 个匹配的联系人:")
         for i, (username, nick, remark, alias) in enumerate(results, 1):
@@ -337,8 +366,9 @@ def main():
                 idx = int(choice) - 1
                 username, nick, remark, alias = results[idx]
                 display = remark if remark else nick
+                output_dir = args.output or get_default_output_dir(display)
                 print(f"\n导出: {display} ({username})")
-                export_chat(username, display, args.output)
+                export_chat(username, display, output_dir)
             else:
                 print("已取消")
         except (EOFError, KeyboardInterrupt):
