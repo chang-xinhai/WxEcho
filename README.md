@@ -173,6 +173,7 @@ decrypted/
 
 ## 致谢
 
+- [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) — 基于此项目开发
 - [L1en2407/wechat-decrypt](https://github.com/L1en2407/wechat-decrypt) — C 语言内存扫描器
 - [Thearas/wechat-db-decrypt-macos](https://github.com/Thearas/wechat-db-decrypt-macos) — macOS lldb 密钥提取方案
 - [ylytdeng/wechat-decrypt](https://github.com/ylytdeng/wechat-decrypt) — 原始内存搜索方案
