@@ -13,6 +13,7 @@ Usage:
     python3 export_chat.py -l --top 30               # 列出前30个会话
 """
 
+import re
 import sqlite3
 import os
 import sys
@@ -70,6 +71,20 @@ def find_contact(query):
     """, (f"%{query}%", f"%{query}%", f"%{query}%")).fetchall()
     conn.close()
     return results
+
+
+def get_contact_display_name(username):
+    """Look up a contact's display name (remark > nick > username) by username/wxid."""
+    conn = sqlite3.connect(CONTACT_DB)
+    row = conn.execute(
+        "SELECT nick_name, remark FROM contact WHERE username = ?",
+        (username,)
+    ).fetchone()
+    conn.close()
+    if row:
+        nick, remark = row
+        return remark if remark else nick
+    return username  # Fallback to username if not found
 
 
 def detect_my_wxid():
@@ -232,11 +247,14 @@ def export_chat(contact_username, contact_display_name, output_dir):
                 elif row[2] in (10000, 10002):
                     sender = "系统"
                 else:
-                    sender = contact_display_name
+                    sender = get_contact_display_name(sender_wxid)
 
                 content = row[5] or ""
                 if isinstance(content, bytes):
                     content = "[压缩内容]"
+                else:
+                    # Strip leading wxid prefix: "wxid_xxx:\n..."
+                    content = re.sub(r'^wxid_[a-zA-Z0-9]+:\n?', '', content)
 
                 all_messages.append({
                     "time": datetime.fromtimestamp(row[3], tz=CST).strftime(
