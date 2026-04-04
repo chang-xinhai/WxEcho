@@ -12,7 +12,7 @@ export default function Footer() {
         <a href="https://www.npmjs.com/package/@walkerch/wxecho" target="_blank" rel="noopener noreferrer">
           npm
         </a>
-        <a href="https://chang-xinhai.github.io/WxEcho" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/chang-xinhai/WxEcho#readme" target="_blank" rel="noopener noreferrer">
           Docs
         </a>
       </div>
