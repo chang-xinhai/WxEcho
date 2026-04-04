@@ -175,20 +175,35 @@ decrypted/
 
 <h2 align="center">❓ 常见问题</h2>
 
-**Q: `task_for_pid failed` 怎么办？**
-请确保：(1) 应用已使用 ad-hoc 签名重签；(2) 应用正在运行且已登录。
+<details>
+<summary><strong>Q: `task_for_pid failed` 怎么办？</strong></summary>
 
-**Q: 更新应用后还能用吗？**
-更新会恢复原始代码签名，请重新运行签名步骤。
+A: 请确保：(1) 应用已使用 ad-hoc 签名重签；(2) 应用正在运行且已登录。
+</details>
 
-**Q: 为什么有些消息显示 `[Compressed Content]`？**
-部分消息使用 zstd 压缩。大多数文本消息不受影响。
+<details>
+<summary><strong>Q: 更新应用后还能用吗？</strong></summary>
 
-**Q: 如何导出图片/视频/音频？**
-本工具仅导出文本记录。媒体文件在 `xwechat_files/.../Message/`，可通过 `message_resource.db` 关联。
+A: 更新会恢复原始代码签名，请重新运行签名步骤。
+</details>
 
-**Q: 支持群聊吗？**
-支持。导出方式相同，每条消息会显示发送者的真实昵称/备注。
+<details>
+<summary><strong>Q: 为什么有些消息显示 `[Compressed Content]`？</strong></summary>
+
+A: 部分消息使用 zstd 压缩。大多数文本消息不受影响。
+</details>
+
+<details>
+<summary><strong>Q: 如何导出图片/视频/音频？</strong></summary>
+
+A: 本工具仅导出文本记录。媒体文件在 `xwechat_files/.../Message/`，可通过 `message_resource.db` 关联。
+</details>
+
+<details>
+<summary><strong>Q: 支持群聊吗？</strong></summary>
+
+A: 支持。导出方式相同，每条消息会显示发送者的真实昵称/备注。
+</details>
 
 ---
 

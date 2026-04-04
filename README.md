@@ -177,20 +177,35 @@ Messages for each contact/group are stored in tables named `Msg_<md5(username)>`
 
 <h2 align="center">❓ FAQ</h2>
 
-**Q: `task_for_pid failed` — what to do?**
-Make sure: (1) the app has been re-signed with ad-hoc signature; (2) the app is running and logged in.
+<details>
+<summary><strong>Q: `task_for_pid failed` — what to do?</strong></summary>
 
-**Q: Does this work after an app update?**
-Updates restore the original code signature. Re-run the re-sign step.
+A: Make sure: (1) the app has been re-signed with ad-hoc signature; (2) the app is running and logged in.
+</details>
 
-**Q: Why do some messages show `[Compressed Content]`?**
-Some messages use zstd compression. Most text messages are unaffected.
+<details>
+<summary><strong>Q: Does this work after an app update?</strong></summary>
 
-**Q: How do I export images/videos/audio?**
-This tool exports text records only. Media files are in `xwechat_files/.../Message/`, correlate via `message_resource.db`.
+A: Updates restore the original code signature. Re-run the re-sign step.
+</details>
 
-**Q: Are group chats supported?**
-Yes. Export works the same way. Messages show sender's actual nickname/remark.
+<details>
+<summary><strong>Q: Why do some messages show `[Compressed Content]`?</strong></summary>
+
+A: Some messages use zstd compression. Most text messages are unaffected.
+</details>
+
+<details>
+<summary><strong>Q: How do I export images/videos/audio?</strong></summary>
+
+A: This tool exports text records only. Media files are in `xwechat_files/.../Message/`, correlate via `message_resource.db`.
+</details>
+
+<details>
+<summary><strong>Q: Are group chats supported?</strong></summary>
+
+A: Yes. Export works the same way. Messages show sender's actual nickname/remark.
+</details>
 
 ---
 
