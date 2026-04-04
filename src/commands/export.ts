@@ -1,11 +1,10 @@
 import { Command } from 'commander';
 import { runPythonScript } from '../utils/python.js';
 
-export function runExport(cmd: Command): Promise<void> {
+export function runExport(this: Command, name: string | undefined): Promise<void> {
   const args: string[] = [];
 
-  const opts = cmd.opts();
-  const name = cmd.args[0];
+  const opts = this.opts();
 
   if (opts.list) {
     args.push('-l');

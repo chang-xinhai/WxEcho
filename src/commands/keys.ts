@@ -4,16 +4,15 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import fs from 'fs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const PY_DIR = path.resolve(__dirname, '../../py');
+// Use WXECHO_ROOT from bin/wxecho launcher if set (for global npm install with symlinks)
+const PKG_ROOT = process.env.WXECHO_ROOT
+  ? path.resolve(process.env.WXECHO_ROOT)
+  : path.resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const PY_DIR = path.join(PKG_ROOT, 'py');
 
-interface KeysOptions {
-  output?: string;
-}
-
-export async function runKeys(options: KeysOptions): Promise<void> {
-  const outputFile = options.output || 'all_keys.json';
+export async function runKeys(this: Command): Promise<void> {
+  const opts = this.opts() as { output?: string };
+  const outputFile = opts.output || 'all_keys.json';
   const binaryPath = path.join(PY_DIR, 'find_all_keys_macos');
 
   console.log('正在从微信进程提取密钥...\n');
@@ -32,7 +31,7 @@ export async function runKeys(options: KeysOptions): Promise<void> {
 
 function compileBinary(): Promise<void> {
   return new Promise((resolve, reject) => {
-    const compile = spawn('cc', [
+    const compile = spawn('/usr/bin/cc', [
       '-O2',
       '-o', path.join(PY_DIR, 'find_all_keys_macos'),
       path.join(PY_DIR, 'find_all_keys_macos.c'),
