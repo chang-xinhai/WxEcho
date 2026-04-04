@@ -350,6 +350,55 @@ body {
   line-height: 1.55;
 }
 
+/* Version Support Section */
+.version-support {
+  padding: 60px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.version-support h2 {
+  font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.version-table {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.version-table table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 400px;
+}
+
+.version-table th,
+.version-table td {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.version-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.version-table td {
+  color: var(--text-muted);
+}
+
+.version-note {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
 /* Steps Section */
 .steps {
   padding: 80px 24px;
@@ -429,6 +478,21 @@ body {
   color: var(--text-muted);
   margin-bottom: 0.6rem;
   font-size: 0.9rem;
+}
+
+.step-alt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+
+.step-alt code {
+  background: var(--code-bg);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.85em;
 }
 
 .step-code-wrapper {

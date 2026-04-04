@@ -75,6 +75,8 @@ sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # 重新打开并登录
 
+> **替代方案：** 关闭 SIP（`csrutil disable`），则无需重签，但影响范围更大。
+
 # 步骤 2: 提取密钥
 wxecho keys
 
@@ -85,6 +87,20 @@ wxecho decrypt
 wxecho export -l                    # 列出所有会话
 wxecho export -n "张三"            # 按名称导出
 ```
+
+---
+
+<h2 align="center">📦 版本支持</h2>
+
+<div align="center">
+
+| 微信版本 | 状态 |
+|----------|------|
+| 4.x（最新测试：4.1.5.240） | ✅ 已测试 |
+
+npm 包最后更新：2026-04-04（v1.0.6）
+
+</div>
 
 ---
 

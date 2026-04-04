@@ -13,7 +13,7 @@ export default function Steps() {
   };
 
   const steps = [
-    { title: t.step1Title, desc: t.step1Desc, cmd: 'sudo codesign --force --deep --sign - /Applications/WeChat.app' },
+    { title: t.step1Title, desc: t.step1Desc, cmd: 'sudo codesign --force --deep --sign - /Applications/WeChat.app', alt: t.step1Alt },
     { title: t.step2Title, desc: t.step2Desc, cmd: 'wxecho keys' },
     { title: t.step3Title, desc: t.step3Desc, cmd: 'wxecho decrypt' },
     { title: t.step4Title, desc: t.step4Desc, cmd: 'wxecho export "Aurora"' },
@@ -38,6 +38,7 @@ export default function Steps() {
                 <Icon name={copiedStep === i ? 'check' : 'copy'} size={14} />
               </button>
             </div>
+            {step.alt && <p className="step-alt" dangerouslySetInnerHTML={{ __html: step.alt }} />}
           </div>
         </div>
       ))}

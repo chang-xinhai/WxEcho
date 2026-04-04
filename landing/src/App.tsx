@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from './LanguageContext';
 import Hero from './components/Hero';
 import Features from './components/Features';
+import VersionSupport from './components/VersionSupport';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
 
@@ -44,6 +45,7 @@ function AppContent() {
       <LangToggle />
       <Hero />
       <Features />
+      <VersionSupport />
       <Steps />
       <Footer />
     </>

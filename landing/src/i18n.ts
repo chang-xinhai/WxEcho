@@ -26,12 +26,20 @@ export const translations = {
     stepsTitle: '快速开始',
     step1Title: '配置签名',
     step1Desc: '移除 Hardened Runtime，允许读取进程内存',
+    step1Alt: '替代方案：关闭 SIP（<code>csrutil disable</code>），则无需重签，但影响范围更大。',
     step2Title: '提取密钥',
     step2Desc: '从进程内存中提取 AES-256 解密密钥',
     step3Title: '解密数据库',
     step3Desc: '解密 SQLCipher 4 加密的数据库',
     step4Title: '导出聊天',
     step4Desc: '导出联系人聊天记录为 TXT / CSV / JSON',
+
+    // Version Support
+    versionSupportTitle: '📦 版本支持',
+    versionCol: '微信版本',
+    versionStatus: '状态',
+    versionTested: '已测试',
+    versionNpmNote: 'npm 包最后更新：',
 
     // Footer
     footerTech: '基于 Mach VM API 和 SQLCipher 4',
@@ -67,12 +75,20 @@ export const translations = {
     stepsTitle: 'Quick Start',
     step1Title: 'Configure Code Signature',
     step1Desc: 'Remove Hardened Runtime to allow process memory access',
+    step1Alt: 'Alternative: Disable SIP (<code>csrutil disable</code>) — no re-signing needed, but affects system-wide security.',
     step2Title: 'Extract Keys',
     step2Desc: 'Extract AES-256 decryption keys from running process memory',
     step3Title: 'Decrypt Databases',
     step3Desc: 'Decrypt SQLCipher 4 encrypted databases',
     step4Title: 'Export History',
     step4Desc: 'Export contact chat records as TXT / CSV / JSON',
+
+    // Version Support
+    versionSupportTitle: '📦 Version Support',
+    versionCol: 'WeChat Version',
+    versionStatus: 'Status',
+    versionTested: 'Tested',
+    versionNpmNote: 'npm package last updated:',
 
     // Footer
     footerTech: 'Built on Mach VM API and SQLCipher 4',

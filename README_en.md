@@ -75,11 +75,10 @@ sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # Re-open and log in
 
-# Step 2: Extract Keys
-wxecho keys
-
 > **Alternative:** Disable SIP (`csrutil disable` in Recovery Mode) — no re-signing needed, but affects system-wide security.
 
+# Step 2: Extract Keys
+wxecho keys
 
 # Step 3: Decrypt Databases
 wxecho decrypt
