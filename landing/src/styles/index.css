@@ -47,9 +47,41 @@
   box-sizing: border-box;
 }
 
+/* Scrollbar - light gray, only show on scroll or hover */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Show scrollbar when hovering on scrollable element */
+:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+}
+
+/* Show scrollbar when scrolling */
+.scrolling::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+
 body {
   font: 16px / 1.6 ui-sans-serif, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", sans-serif;
-  background: var(--bg-primary);
+  background: linear-gradient(160deg, #f8fdf9 0%, var(--bg-primary) 50%, #f7faf9 100%);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
