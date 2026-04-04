@@ -80,6 +80,9 @@ sudo codesign --force --deep --sign - /Applications/WeChat.app
 # Step 2: Extract Keys
 wxecho keys
 
+> **Alternative:** Disable SIP (`csrutil disable` in Recovery Mode) — no re-signing needed, but affects system-wide security.
+
+
 # Step 3: Decrypt Databases
 wxecho decrypt
 
@@ -87,6 +90,20 @@ wxecho decrypt
 wxecho export -l                    # List all conversations
 wxecho export -n "John Doe"        # Export by name
 ```
+
+---
+
+<h2 align="center">📦 Version Support</h2>
+
+<div align="center">
+
+| WeChat Version | Status |
+|----------------|--------|
+| 4.x (latest tested: 4.1.5.240) | ✅ Tested |
+
+npm package last updated: 2026-04-04 (v1.0.6)
+
+</div>
 
 ---
 
