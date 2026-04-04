@@ -483,3 +483,114 @@ wxecho export --help
 wxecho decrypt --help
 wxecho keys --help
 ```
+
+---
+
+## 开发流程经验（Debug Notes）
+
+本文档记录开发过程中遇到的坑和关键决策，供后续参考。
+
+### Global Install vs Local Dev
+
+项目有两种运行方式：
+
+| 模式 | 命令 | 特点 |
+|------|------|------|
+| Local dev | `npm run dev -- <cmd>` | 用 tsx 直接跑 TS，不 build，路径用 `__dirname` 相对定位 |
+| Global install | `npm install -g @walkerch/wxecho` | 跑 `dist/cli.js`，路径通过 `WXECHO_ROOT` 环境变量定位包目录 |
+
+**经验**：发布前必须用 global install 完整测试全流程，不能只靠 `npm run dev`。两种模式下 `PY_DIR`（Python/二进制文件目录）的解析路径不同。
+
+### WXECHO_ROOT 环境变量传递
+
+`bin/wxecho` launcher 向 node 进程传环境变量的方式必须用 `env VAR=value node ...`，**不能**用 bash 行连续：
+
+```bash
+# 错误：第二行是独立语句，不会影响 exec 的环境
+exec node "$PKG_ROOT/dist/cli.js" "$@" \
+  WXECHO_ROOT="$PKG_ROOT"
+
+# 正确
+exec env WXECHO_ROOT="$PKG_ROOT" node "$PKG_ROOT/dist/cli.js" "$@"
+```
+
+**症状**：`WXECHO_ROOT` 在 node 进程中是 `undefined`，导致所有相对路径解析到错误位置。
+
+### Commander.js Action Handler 的 `this` 绑定
+
+Commander.js v12 的 `.action(fn)` 中：
+- **第一个参数** = positional argument（字符串），不是 Command 对象
+- **`this`** = Command 对象
+
+```typescript
+// 错误
+export function runExport(cmd: Command) {
+  cmd.opts(); // TypeError: opts of undefined
+}
+
+// 正确
+export function runExport(this: Command, name: string | undefined) {
+  this.opts(); // OK
+}
+```
+
+### C 编译器路径与 sysroot
+
+macOS CLT 的 `clang` 位于 `~/Library/Developer/CommandLineTools/usr/bin/clang`，但**不自带** `/usr/include/` 等系统头文件。需要通过 `-isysroot` 指定 SDK 路径：
+
+```typescript
+const sysroot = execSync('xcrun --show-sdk-path', { encoding: 'utf8' }).trim();
+spawn('clang', ['-isysroot', sysroot, '-O2', '-o', outFile, srcFile, '-framework', 'Foundation']);
+```
+
+直接 `spawn('clang', ...)` 不加 `-isysroot` 会报 `fatal error: 'stdio.h' file not found`。
+
+另外，`xcrun --find cc` 返回的是 symlink（`cc -> clang`），部分场景下 `spawn` 无法 follow，导致 ENOENT。用 `fs.realpathSync()` resolve 到真实二进制路径。
+
+### macOS WeChat 数据库路径
+
+WeChat macOS 的数据**不在** `~/Documents/xwechat_files/`，而在：
+
+```
+~/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/<account>/db_storage/
+```
+
+自动检测必须优先搜索此路径。TypeScript (`decrypt_db.ts`) 和 Python (`config.py`) 的检测逻辑都需要对应修改。
+
+### Python `sys.platform` 值
+
+Python 的 `platform.system()` 在 macOS 上返回 `'Darwin'`（不是 `'linux'` 或 `'posix'`）。因此：
+- `config.py` 的 `auto_detect_db_dir()` 在 macOS 上返回 `None`，除非显式处理 `darwin` case
+- `sys.platform` 是 `'darwin'`，但 `_SYSTEM = platform.system().lower()` 是 `'darwin'`，而 `_auto_detect_db_dir_linux()` 只处理 `_SYSTEM == "linux"`
+
+**教训**：跨平台代码中，不要假设 macOS 会走 linux 分支，必须显式处理。
+
+### sudo 下 HOME 被重置
+
+通过 Node.js `spawn('sudo', ...)` 调用 C 二进制时，sudo 子进程的 `HOME` 环境变量被重置为 `/var/root`。C 代码内部通过 `getenv("HOME")` 猜用户 home 会失败。
+
+解法：在 Node.js 侧显式传真实 home：
+
+```typescript
+const realHome = os.userInfo().homedir; // 不受 sudo 影响
+spawn('sudo', [binaryPath], {
+  env: { ...process.env, HOME: realHome, SUDO_USER: path.basename(realHome) }
+});
+```
+
+### 每次 publish 前的检查清单
+
+1. `npm run dev -- <cmd>` — 本地开发模式验证（doctor、keys、decrypt、export）
+2. `npm run build && npm pack --dry-run` — 确认打包内容正确
+3. `npm install -g ./<package>.tgz` — 全局安装测试
+4. `wxecho keys`（global 模式）— 验证编译、二进制运行、路径解析
+5. `wxecho decrypt` — 验证 keys 读取、数据库扫描路径
+6. `wxecho export -l` — 验证 Python export 路径自动检测
+7. `npm version patch && npm publish` — 确认 git working tree 干净
+
+### npm Version 注意事项
+
+- `npm version patch` 依赖 git working tree 干净，dirty 时会报错
+- `npm publish --dry-run` 可以预览发布内容而不实际上传
+- `npm pack` 生成 `.tgz` 可用于离线测试
+
