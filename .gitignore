@@ -6,3 +6,7 @@ exported/
 __pycache__/
 find_all_keys_macos
 .DS_Store
+py/config.json
+py/all_keys.json
+py/decrypted/
+py/find_all_keys_macos
