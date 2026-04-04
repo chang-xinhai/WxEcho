@@ -9,10 +9,6 @@
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/chang-xinhai/WxEcho/main/landing/public/screenshot.png" alt="WxEcho Screenshot" width="800" />
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/badge/macOS-11%2B-blue?style=flat-square&logo=apple" />
   <img src="https://img.shields.io/badge/Platform-Apple%20Silicon%20%26%20Intel-blue?style=flat-square" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
