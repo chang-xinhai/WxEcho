@@ -26,11 +26,13 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         run: |
           rm -rf landing/node_modules landing/package-lock.json
-          npm cache clean --force
-          npm install --prefer-offline=false
+          pnpm install
         working-directory: landing
 
       - name: Build
