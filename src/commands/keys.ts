@@ -50,7 +50,14 @@ function findCC(): string {
 function compileBinary(): Promise<void> {
   return new Promise((resolve, reject) => {
     const ccPath = findCC();
+    // Get SDK path so clang can find system headers
+    let sysroot = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk';
+    try {
+      sysroot = execSync('xcrun --show-sdk-path', { encoding: 'utf8' }).trim();
+    } catch { /* use default */ }
+
     const compile = spawn(ccPath, [
+      '-isysroot', sysroot,
       '-O2',
       '-o', path.join(PY_DIR, 'find_all_keys_macos'),
       path.join(PY_DIR, 'find_all_keys_macos.c'),
