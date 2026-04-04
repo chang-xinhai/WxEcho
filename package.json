@@ -2,7 +2,15 @@
   "name": "@walkerch/wxecho",
   "version": "1.0.0",
   "description": "macOS native chat history export tool with local database decryption support",
-  "keywords": ["macos", "chat-export", "decrypt", "sqlite", "wxecho", "database", "cli"],
+  "keywords": [
+    "macos",
+    "chat-export",
+    "decrypt",
+    "sqlite",
+    "wxecho",
+    "database",
+    "cli"
+  ],
   "license": "MIT",
   "author": "Xinhai Chang <changxinhai@pku.edu.cn>",
   "repository": {
@@ -36,7 +44,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
-    "esbuild": "^0.21.0",
+    "esbuild": "^0.28.0",
     "tsx": "^4.15.0",
     "typescript": "^5.4.0"
   },
