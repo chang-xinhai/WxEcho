@@ -13,3 +13,7 @@ py/find_all_keys_macos
 
 landing/node_modules/
 landing/dist/
+
+dist/
+node_modules/
+*.map
