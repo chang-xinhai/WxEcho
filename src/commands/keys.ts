@@ -1,8 +1,9 @@
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import fs from 'fs';
+import os from 'os';
 
 // Use WXECHO_ROOT from bin/wxecho launcher if set (for global npm install with symlinks)
 const PKG_ROOT = process.env.WXECHO_ROOT
@@ -29,9 +30,27 @@ export async function runKeys(this: Command): Promise<void> {
   await extractKeys(binaryPath, outputFile);
 }
 
+function findCC(): string {
+  try {
+    // Verify cc is actually callable
+    execSync('cc --version', { stdio: 'pipe' });
+    const ccPath = execSync('xcrun --find cc', { encoding: 'utf8' }).trim();
+    // Resolve symlink to avoid ENOENT in some sudo contexts
+    return fs.realpathSync(ccPath);
+  } catch {
+    throw new Error(
+      '未找到 C 编译器 (cc)。\n\n' +
+      '请先安装 Xcode Command Line Tools:\n' +
+      '  xcode-select --install\n\n' +
+      '安装完成后重新运行 wxecho keys'
+    );
+  }
+}
+
 function compileBinary(): Promise<void> {
   return new Promise((resolve, reject) => {
-    const compile = spawn('/usr/bin/cc', [
+    const ccPath = findCC();
+    const compile = spawn(ccPath, [
       '-O2',
       '-o', path.join(PY_DIR, 'find_all_keys_macos'),
       path.join(PY_DIR, 'find_all_keys_macos.c'),
@@ -53,9 +72,13 @@ function compileBinary(): Promise<void> {
 
 function extractKeys(binaryPath: string, outputFile: string): Promise<void> {
   return new Promise((resolve, reject) => {
+    // Pass the real user's home explicitly, since sudo resets HOME to /var/root
+    // and the C binary's SUDO_USER detection may not work through Node.js spawn
+    const realHome = os.userInfo().homedir;
     const child = spawn('sudo', [binaryPath], {
       cwd: PY_DIR,
-      stdio: 'inherit'
+      stdio: 'inherit',
+      env: { ...process.env, HOME: realHome, SUDO_USER: path.basename(realHome) }
     });
 
     child.on('close', (code: number | null) => {

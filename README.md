@@ -78,7 +78,7 @@ sudo codesign --force --deep --sign - /Applications/WeChat.app
 # Re-open and log in
 
 # Step 2: Extract Keys
-sudo wxecho keys
+wxecho keys
 
 # Step 3: Decrypt Databases
 wxecho decrypt
@@ -111,7 +111,7 @@ The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4)
 
 | Command | Description |
 |---------|-------------|
-| `wxecho keys` | Extract database keys from running process (requires sudo) |
+| `wxecho keys` | Extract database keys from running process |
 | `wxecho decrypt` | Decrypt local databases |
 | `wxecho export [options]` | Export chat history |
 | `wxecho doctor` | Check environment dependencies |
@@ -162,7 +162,7 @@ Messages for each contact/group are stored in tables named `Msg_<md5(username)>`
 <h2 align="center">❓ FAQ</h2>
 
 **Q: `task_for_pid failed` — what to do?**
-Make sure: (1) running with `sudo`; (2) the app has been re-signed; (3) the app is running and logged in.
+Make sure: (1) the app has been re-signed with ad-hoc signature; (2) the app is running and logged in.
 
 **Q: Does this work after an app update?**
 Updates restore the original code signature. Re-run the re-sign step.

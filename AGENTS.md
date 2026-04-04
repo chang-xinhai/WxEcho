@@ -398,7 +398,7 @@ csrutil status
 # 应显示 "System Integrity Protection status: disabled."
 
 # 6. 执行密钥提取（无需重签）
-sudo wxecho keys
+wxecho keys
 
 # 注意：关闭 SIP 会降低系统安全性，微信更新后不需重签
 # 如需重新开启 SIP：重启进恢复模式，执行 csrutil enable
@@ -408,7 +408,7 @@ sudo wxecho keys
 
 ```bash
 # 确保微信正在运行且已登录
-sudo wxecho keys
+wxecho keys
 
 # 输出 all_keys.json，包含所有数据库的解密密钥
 ```

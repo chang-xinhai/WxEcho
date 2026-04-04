@@ -3,9 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const PY_DIR = path.resolve(__dirname, '../../py');
+// Use WXECHO_ROOT from bin/wxecho launcher if set (for global npm install with symlinks)
+const PKG_ROOT = process.env.WXECHO_ROOT
+  ? path.resolve(process.env.WXECHO_ROOT)
+  : path.resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const PY_DIR = path.join(PKG_ROOT, 'py');
 
 export function runPythonScript(
   scriptName: 'export_chat.py' | 'decrypt_db.py',

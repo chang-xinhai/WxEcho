@@ -14,7 +14,7 @@ export default function Steps() {
 
   const steps = [
     { title: t.step1Title, desc: t.step1Desc, cmd: 'sudo codesign --force --deep --sign - /Applications/WeChat.app' },
-    { title: t.step2Title, desc: t.step2Desc, cmd: 'sudo wxecho keys' },
+    { title: t.step2Title, desc: t.step2Desc, cmd: 'wxecho keys' },
     { title: t.step3Title, desc: t.step3Desc, cmd: 'wxecho decrypt' },
     { title: t.step4Title, desc: t.step4Desc, cmd: 'wxecho export "Aurora"' },
   ];

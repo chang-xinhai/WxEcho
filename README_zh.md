@@ -76,7 +76,7 @@ sudo codesign --force --deep --sign - /Applications/WeChat.app
 # 重新打开并登录
 
 # 步骤 2: 提取密钥
-sudo wxecho keys
+wxecho keys
 
 # 步骤 3: 解密数据库
 wxecho decrypt
@@ -109,7 +109,7 @@ wxecho export -n "张三"            # 按名称导出
 
 | 命令 | 描述 |
 |------|------|
-| `wxecho keys` | 从运行中的进程提取数据库密钥（需要 sudo） |
+| `wxecho keys` | 从运行中的进程提取数据库密钥 |
 | `wxecho decrypt` | 解密本地数据库 |
 | `wxecho export [options]` | 导出聊天记录 |
 | `wxecho doctor` | 检查环境依赖 |
@@ -160,7 +160,7 @@ decrypted/
 <h2 align="center">❓ 常见问题</h2>
 
 **Q: `task_for_pid failed` 怎么办？**
-请确保：(1) 使用 `sudo` 运行；(2) 应用已重新签名；(3) 应用正在运行且已登录。
+请确保：(1) 应用已使用 ad-hoc 签名重签；(2) 应用正在运行且已登录。
 
 **Q: 更新应用后还能用吗？**
 更新会恢复原始代码签名，请重新运行签名步骤。

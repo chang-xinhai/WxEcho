@@ -7,14 +7,15 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Try npm global prefix approach (most reliable for global installs)
 if NPM_PREFIX=$(npm prefix -g 2>/dev/null); then
-  if [ -f "$NPM_PREFIX/lib/node_modules/wxecho/dist/cli.js" ]; then
-    exec node "$NPM_PREFIX/lib/node_modules/wxecho/dist/cli.js" "$@"
+  if [ -f "$NPM_PREFIX/lib/node_modules/@walkerch/wxecho/dist/cli.js" ]; then
+    PKG_ROOT="$NPM_PREFIX/lib/node_modules/@walkerch/wxecho"
+    exec env WXECHO_ROOT="$PKG_ROOT" node "$PKG_ROOT/dist/cli.js" "$@"
   fi
 fi
 
 # For local development, check if pre-built dist exists
-if [ -f "$ROOT_DIR/dist/cli.js" ]; then
-  exec node "$ROOT_DIR/dist/cli.js" "$@"
+if [ -f "$SCRIPT_DIR/../dist/cli.js" ]; then
+  exec env WXECHO_ROOT="$SCRIPT_DIR" node "$SCRIPT_DIR/../dist/cli.js" "$@"
 fi
 
 # Fallback: use npx tsx to run TypeScript directly
