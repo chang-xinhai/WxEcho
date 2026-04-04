@@ -1,9 +1,9 @@
 {
   "name": "wxecho",
   "version": "1.0.0",
-  "description": "macOS 微信聊天记录一键解密导出工具",
-  "keywords": ["wechat", "macos", "chat-export", "decrypt", "wcdb", "sqlite", "wxecho"],
-  "license": "WTFPL",
+  "description": "macOS native chat history export tool with local database decryption support",
+  "keywords": ["macos", "chat-export", "decrypt", "sqlite", "wxecho", "database", "cli"],
+  "license": "MIT",
   "author": "Xinhai Chang <changxinhai@pku.edu.cn>",
   "repository": {
     "type": "git",
@@ -15,7 +15,9 @@
     "wxecho": "./bin/wxecho"
   },
   "files": [
-    "dist/",
+    "dist/cli.js",
+    "dist/commands/",
+    "dist/utils/",
     "bin/",
     "py/*.py",
     "py/*.c",
@@ -23,10 +25,9 @@
   ],
   "scripts": {
     "build": "tsx scripts/build-cli.ts",
-    "build:landing": "cd landing && npm install && npm run build",
+    "build:landing": "cd landing && npm ci && npm run build",
     "build:all": "npm run build && npm run build:landing",
     "prepublishOnly": "npm run build",
-    "postinstall": "bash scripts/postinstall.sh",
     "dev": "tsx src/cli.ts",
     "typecheck": "tsc --noEmit"
   },

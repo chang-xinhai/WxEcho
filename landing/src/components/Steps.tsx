@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Icon from './Icon';
+import { useLanguage } from '../LanguageContext';
 
 export default function Steps() {
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const copyCommand = (step: number, cmd: string) => {
     navigator.clipboard.writeText(cmd);
@@ -11,31 +13,15 @@ export default function Steps() {
   };
 
   const steps = [
-    {
-      title: '重签微信',
-      desc: '去掉 Hardened Runtime，以便读取进程内存',
-      cmd: 'sudo codesign --force --deep --sign - /Applications/WeChat.app',
-    },
-    {
-      title: '提取密钥',
-      desc: '从微信进程内存中提取 AES-256 解密密钥',
-      cmd: 'sudo wxecho keys',
-    },
-    {
-      title: '解密数据库',
-      desc: '解密 SQLCipher 4 加密的 WCDB 数据库',
-      cmd: 'wxecho decrypt',
-    },
-    {
-      title: '导出聊天',
-      desc: '导出联系人 "Aurora" 的聊天记录为 TXT / CSV / JSON',
-      cmd: 'wxecho export "Aurora"',
-    },
+    { title: t.step1Title, desc: t.step1Desc, cmd: 'sudo codesign --force --deep --sign - /Applications/WeChat.app' },
+    { title: t.step2Title, desc: t.step2Desc, cmd: 'sudo wxecho keys' },
+    { title: t.step3Title, desc: t.step3Desc, cmd: 'wxecho decrypt' },
+    { title: t.step4Title, desc: t.step4Desc, cmd: 'wxecho export "Aurora"' },
   ];
 
   return (
     <section className="steps">
-      <h2>快速开始</h2>
+      <h2>{t.stepsTitle}</h2>
       {steps.map((step, i) => (
         <div key={i} className="step">
           <div className="step-number">{i + 1}</div>
@@ -47,7 +33,7 @@ export default function Steps() {
               <button
                 className="copy-btn-small"
                 onClick={() => copyCommand(i, step.cmd)}
-                aria-label={copiedStep === i ? '已复制' : '复制命令'}
+                aria-label={copiedStep === i ? t.copied : t.copy}
               >
                 <Icon name={copiedStep === i ? 'check' : 'copy'} size={14} />
               </button>

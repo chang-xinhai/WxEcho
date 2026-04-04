@@ -1,26 +1,47 @@
 import { useState, useEffect } from 'react';
+import { LanguageProvider, useLanguage } from './LanguageContext';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
 
-function App() {
+function ThemeToggle() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  // Update data-theme on document root
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   return (
+    <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+      {theme === 'dark' ? '☀️' : '🌙'}
+    </button>
+  );
+}
+
+function LangToggle() {
+  const { lang, toggleLang } = useLanguage();
+
+  return (
+    <button
+      className="lang-toggle"
+      onClick={toggleLang}
+      aria-label="Toggle language"
+    >
+      {lang === 'zh' ? 'EN' : '中'}
+    </button>
+  );
+}
+
+function AppContent() {
+  return (
     <>
-      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-        {theme === 'dark' ? '☀️' : '🌙'}
-      </button>
+      <ThemeToggle />
+      <LangToggle />
       <Hero />
       <Features />
       <Steps />
@@ -29,4 +50,10 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
+  );
+}

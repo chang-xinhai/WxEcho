@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 dist/
+dist/landing/
 landing/node_modules/
 landing/dist/
 
@@ -33,7 +34,7 @@ landing/
 __tests__/
 
 # TypeScript
-*.ts.map
+*.map
 tsconfig.tsbuildinfo
 
 # Temporary files

@@ -1,4 +1,8 @@
+import { useLanguage } from '../LanguageContext';
+
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="footer">
       <div className="footer-links">
@@ -8,9 +12,12 @@ export default function Footer() {
         <a href="https://www.npmjs.com/package/wxecho" target="_blank" rel="noopener noreferrer">
           npm
         </a>
+        <a href="https://chang-xinhai.github.io/WxEcho" target="_blank" rel="noopener noreferrer">
+          Docs
+        </a>
       </div>
-      <p>基于 Mach VM API 和 SQLCipher 4 逆向工程</p>
-      <p className="footer-license">WTFPL License</p>
+      <p>{t.footerTech}</p>
+      <p className="footer-license">MIT License</p>
     </footer>
   );
 }

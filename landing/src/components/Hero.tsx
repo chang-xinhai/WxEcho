@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Icon from './Icon';
+import { useLanguage } from '../LanguageContext';
 
 export default function Hero() {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
 
   const copyInstall = () => {
     navigator.clipboard.writeText('npm install -g wxecho');
@@ -18,17 +20,17 @@ export default function Hero() {
         </div>
 
         <div className="badges">
-          <span className="badge">macOS 专属</span>
-          <span className="badge">微信 4.x 支持</span>
-          <span className="badge">开源免费</span>
+          <span className="badge">{t.badge1}</span>
+          <span className="badge">{t.badge2}</span>
+          <span className="badge">{t.badge3}</span>
         </div>
 
         <h1>WxEcho</h1>
-        <p className="tagline">回声，你的聊天记录完整回响</p>
+        <p className="tagline">{t.tagline}</p>
 
         <div className="install-command">
           <code>npm install -g wxecho</code>
-          <button className="copy-btn" onClick={copyInstall} aria-label={copied ? '已复制' : '复制命令'}>
+          <button className="copy-btn" onClick={copyInstall} aria-label={copied ? t.copied : t.copy}>
             <Icon name={copied ? 'check' : 'copy'} size={14} />
           </button>
         </div>
