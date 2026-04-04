@@ -301,9 +301,16 @@ function detectWeChatDbDir(): string | null {
   let bestDir: string | null = null;
   let bestMtime = 0;
 
-  try {
-    const xwechatRoot = path.join(home, 'Documents', 'xwechat_files');
-    if (!fs.existsSync(xwechatRoot)) return null;
+  // macOS WeChat stores data in ~/Library/Containers/
+  const wechatContainerRoot = path.join(
+    home, 'Library', 'Containers', 'com.tencent.xinWeChat', 'Data', 'Documents', 'xwechat_files'
+  );
+
+  // Also check ~/Documents as fallback for older installs
+  const docsRoot = path.join(home, 'Documents', 'xwechat_files');
+
+  for (const xwechatRoot of [wechatContainerRoot, docsRoot]) {
+    if (!fs.existsSync(xwechatRoot)) continue;
 
     const accounts = fs.readdirSync(xwechatRoot);
     for (const account of accounts) {
@@ -316,13 +323,11 @@ function detectWeChatDbDir(): string | null {
             bestMtime = mtime;
             bestDir = dbStorage;
           }
-        } catch {
+        } catch (_) {
           // skip
         }
       }
     }
-  } catch {
-    return null;
   }
 
   return bestDir;
