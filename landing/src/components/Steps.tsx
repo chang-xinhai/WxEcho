@@ -18,17 +18,17 @@ export default function Steps() {
     {
       title: '提取密钥',
       desc: '从微信进程内存中提取 AES-256 解密密钥',
-      cmd: 'sudo wechat-export keys',
+      cmd: 'sudo wxecho keys',
     },
     {
       title: '解密数据库',
       desc: '解密 SQLCipher 4 加密的 WCDB 数据库',
-      cmd: 'wechat-export decrypt',
+      cmd: 'wxecho decrypt',
     },
     {
       title: '导出聊天',
       desc: '按联系人导出聊天记录为 TXT / CSV / JSON',
-      cmd: 'wechat-export export -l',
+      cmd: 'wxecho export -l',
     },
   ];
 

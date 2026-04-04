@@ -9,7 +9,7 @@ export async function runDecrypt(): Promise<void> {
   } catch (error) {
     console.error('解密失败:', error);
     console.log('\n请确保：');
-    console.log('  1. 已运行 wechat-export keys 提取密钥');
+    console.log('  1. 已运行 wxecho keys 提取密钥');
     console.log('  2. 密钥文件 all_keys.json 存在于 py/ 目录');
     process.exit(1);
   }

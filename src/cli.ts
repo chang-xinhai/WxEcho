@@ -9,7 +9,7 @@ import { doctor } from './utils/doctor.js';
 const program = new Command();
 
 program
-  .name('wechat-export')
+  .name('wxecho')
   .description('macOS 微信聊天记录一键解密导出工具')
   .version('1.0.0');
 

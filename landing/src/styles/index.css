@@ -235,9 +235,16 @@ body {
   text-align: center;
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
   font-size: 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.75rem;
   color: var(--text);
   font-weight: 600;
+}
+
+.features-tagline {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .features-grid {
@@ -272,7 +279,7 @@ body {
 
 .feature-card h3 {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   margin-bottom: 0.5rem;
   color: var(--text);
   font-weight: 600;
@@ -353,7 +360,7 @@ body {
 
 .step-content h3 {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   margin-bottom: 0.35rem;
   color: var(--text);
   font-weight: 600;

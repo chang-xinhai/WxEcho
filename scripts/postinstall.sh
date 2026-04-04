@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 PY_DIR="$ROOT_DIR/py"
 
-echo "🔧 正在设置 wechat-export-macos..."
+echo "🔧 正在设置 WxEcho..."
 
 # Check if C compiler is available
 if command -v cc &> /dev/null; then
@@ -38,7 +38,7 @@ echo ""
 echo "✨ 设置完成！"
 echo ""
 echo "使用方式："
-echo "  wechat-export doctor              # 检测环境"
-echo "  wechat-export keys                # 提取密钥（需 sudo）"
-echo "  wechat-export decrypt             # 解密数据库"
-echo "  wechat-export export -l          # 列出会话"
+echo "  wxecho doctor              # 检测环境"
+echo "  wxecho keys                # 提取密钥（需 sudo）"
+echo "  wxecho decrypt             # 解密数据库"
+echo "  wxecho export -l          # 列出会话"

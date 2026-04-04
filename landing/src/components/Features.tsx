@@ -35,6 +35,7 @@ export default function Features() {
   return (
     <section className="features">
       <h2>功能特性</h2>
+      <p className="features-tagline">macOS 微信聊天记录一键解密导出工具</p>
       <div className="features-grid">
         {features.map((feature, index) => (
           <div key={index} className="feature-card">

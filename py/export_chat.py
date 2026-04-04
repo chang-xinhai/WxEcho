@@ -7,8 +7,8 @@ Outputs TXT (human-readable), CSV (spreadsheet), and JSON (structured data).
 
 Usage:
     python3 export_chat.py -n "联系人昵称或备注" -o ./output_dir
-    python3 export_chat.py -n "Chris"                 # 默认导出到 ~/Downloads/wechat-export/Chris/
-    python3 export_chat.py -n "工作群"                # 默认导出到 ~/Downloads/wechat-export/工作群/
+    python3 export_chat.py -n "Chris"                 # 默认导出到 ~/Downloads/wxecho/Chris/
+    python3 export_chat.py -n "工作群"                # 默认导出到 ~/Downloads/wxecho/工作群/
     python3 export_chat.py -l                        # 列出所有会话
     python3 export_chat.py -l --top 30               # 列出前30个会话
 """
@@ -46,8 +46,8 @@ MEDIA_TYPES = {3, 34, 43, 47}
 
 
 def get_default_output_dir(name):
-    """Get default output directory: ~/Downloads/wechat-export/{name}/"""
-    return os.path.join(os.path.expanduser("~/Downloads/wechat-export"), name)
+    """Get default output directory: ~/Downloads/wxecho/{name}/"""
+    return os.path.join(os.path.expanduser("~/Downloads/wxecho"), name)
 
 
 def get_message_dbs():
@@ -327,7 +327,7 @@ def main():
     parser = argparse.ArgumentParser(description="微信聊天记录导出工具")
     parser.add_argument("-n", "--name", help="联系人昵称、备注或微信号（模糊搜索）")
     parser.add_argument("-u", "--username", help="联系人用户名（精确匹配，跳过搜索）")
-    parser.add_argument("-o", "--output", help="导出目录（默认: ~/Downloads/wechat-export/{name}/）")
+    parser.add_argument("-o", "--output", help="导出目录（默认: ~/Downloads/wxecho/{name}/）")
     parser.add_argument("--list", "-l", action="store_true", help="列出所有会话")
     parser.add_argument("--top", type=int, default=20, help="列出前N个会话（默认20）")
     parser.add_argument("--my-wxid", help="你自己的微信ID（可选，自动检测）")

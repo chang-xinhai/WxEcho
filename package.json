@@ -1,18 +1,18 @@
 {
-  "name": "wechat-export-macos",
+  "name": "wxecho",
   "version": "1.0.0",
   "description": "macOS 微信聊天记录一键解密导出工具",
-  "keywords": ["wechat", "macos", "chat-export", "decrypt", "wcdb", "sqlite"],
+  "keywords": ["wechat", "macos", "chat-export", "decrypt", "wcdb", "sqlite", "wxecho"],
   "license": "WTFPL",
   "author": "Xinhai Chang <changxinhai@pku.edu.cn>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chang-xinhai/wechat-export-macos"
+    "url": "https://github.com/chang-xinhai/WxEcho"
   },
   "type": "module",
   "main": "./dist/cli.js",
   "bin": {
-    "wechat-export": "./bin/wechat-export"
+    "wxecho": "./bin/wxecho"
   },
   "files": [
     "dist/",

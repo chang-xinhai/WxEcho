@@ -31,10 +31,10 @@ export async function doctor(): Promise<void> {
   if (allPassed) {
     console.log('✓ 环境就绪！可以开始使用。\n');
     console.log('使用步骤：');
-    console.log('  1. wechat-export keys      # 提取密钥（需要 sudo）');
-    console.log('  2. wechat-export decrypt   # 解密数据库');
-    console.log('  3. wechat-export export -l # 列出所有会话');
-    console.log('  4. wechat-export export -n "联系人"  # 导出聊天');
+    console.log('  1. wxecho keys      # 提取密钥（需要 sudo）');
+    console.log('  2. wxecho decrypt   # 解密数据库');
+    console.log('  3. wxecho export -l # 列出所有会话');
+    console.log('  4. wxecho export -n "联系人"  # 导出聊天');
   } else {
     console.log('✗ 环境检查未通过，请安装缺失的依赖。\n');
     console.log('安装依赖：');
