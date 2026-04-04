@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { runExport } from './commands/export.js';
-import { runDecrypt } from './commands/decrypt.js';
+import { runDecryptCmd } from './commands/decrypt.js';
 import { runKeys } from './commands/keys.js';
 import { doctor } from './utils/doctor.js';
 
@@ -27,7 +27,7 @@ program
 program
   .command('decrypt')
   .description('解密微信数据库')
-  .action(runDecrypt);
+  .action(runDecryptCmd);
 
 program
   .command('keys')

@@ -14,9 +14,6 @@ src/
 scripts/
 landing/
 
-# Documentation
-*.md
-
 # Git
 .git/
 .gitignore
@@ -24,9 +21,6 @@ landing/
 # Environment
 .env*
 .env
-
-# macOS
-.DS_Store
 
 # Test files
 *.test.ts
@@ -42,7 +36,15 @@ tsconfig.tsbuildinfo
 *.temp
 *.log
 
-# User data (should not be published)
+# WeChat data (should not be published)
 py/all_keys.json
-py/config.json
 py/decrypted/
+py/find_all_keys_macos
+py/decrypt_db.py
+
+# Documentation variants (only README.md is kept)
+README_en.md
+README_zh.md
+
+# macOS
+.DS_Store

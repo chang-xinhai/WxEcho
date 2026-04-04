@@ -14,7 +14,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/macOS-11%2B-blue?style=flat-square&logo=apple" />
-  <img src="https://img.shields.io/badge/Platform-Apple%20Silicon%20%26%20Intel-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Platform-Apple%20Silicon-blue?style=flat-square" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
   <img src="https://img.shields.io/badge/Python-3.8%2B-yellow?style=flat-square&logo=python" />
   <img src="https://img.shields.io/badge/Node.js-npm-orange?style=flat-square&logo=npm" />
@@ -49,7 +49,10 @@
 
 <div align="center">
 
-macOS 11+ · Desktop app 4.x (logged in, chat history synced) · Xcode Command Line Tools · Python 3.8+
+- macOS 11+ on **Apple Silicon** (M1/M2/M3/M4...)
+- Desktop app 4.x (logged in, chat history synced)
+- Xcode Command Line Tools: `xcode-select --install`
+- Python 3.8+: `pip install pycryptodome`
 
 </div>
 

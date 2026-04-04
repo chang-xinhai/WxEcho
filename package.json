@@ -17,7 +17,9 @@
   "files": [
     "dist/cli.js",
     "bin/",
-    "py/*.py",
+    "py/config.py",
+    "py/export_chat.py",
+    "py/key_utils.py",
     "py/*.c",
     "py/find_all_keys_macos"
   ],
