@@ -49,7 +49,9 @@
 
 <div align="center">
 
-macOS 11+ on **Apple Silicon** (M1/M2/M3/M4...) · Desktop app 4.x (logged in, chat history synced) · Xcode Command Line Tools: `xcode-select --install`
+macOS 11+ on **Apple Silicon** (M1/M2/M3/M4...)<br/>
+Desktop app 4.x (logged in, chat history synced)<br/>
+Xcode Command Line Tools: `xcode-select --install`
 
 </div>
 
