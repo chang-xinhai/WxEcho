@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/chang-xinhai/WxEcho/main/landing/public/screenshot.png" alt="WxEcho Screenshot" width="800" />
+  <img src="./landing/public/screenshot_en.png" alt="WxEcho Screenshot" width="800" />
 </p>
 
 <p align="center">
