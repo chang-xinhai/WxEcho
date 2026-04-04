@@ -28,6 +28,8 @@
 
 ## ✨ 功能特性
 
+<div align="center">
+
 | 功能 | 描述 |
 |------|------|
 | 🔑 **密钥提取** | 直接从运行进程内存中提取加密密钥 |
@@ -37,16 +39,22 @@
 | 💬 **群聊支持** | 完整支持群聊会话导出 |
 | 🍎 **原生 macOS** | 基于 Mach VM API 构建，支持 Apple Silicon 和 Intel |
 
+</div>
+
 ---
 
 ## 🚀 快速开始
 
 ### 环境要求
 
+<div align="center">
+
 - macOS 11+
 - 桌面应用 4.x (已登录，聊天记录已同步)
 - Xcode Command Line Tools: `xcode-select --install`
 - Python 3.8+: `pip install pycryptodome`
+
+</div>
 
 ### 安装
 
@@ -85,6 +93,8 @@ wxecho export -n "张三"            # 按名称导出
 
 ## ⚙️ 工作原理
 
+<div align="center">
+
 ```
 运行中的应用进程 ──密钥提取──▶ keys.json ──解密──▶ 明文 SQLite ──导出──▶ TXT/CSV/JSON
    (SQLCipher 4)                     (AES-256-CBC)      (.db 文件)       (聊天记录)
@@ -92,9 +102,13 @@ wxecho export -n "张三"            # 按名称导出
 
 应用使用 [WCDB](https://github.com/nicklockwood/wcdb)（基于 SQLCipher 4），每个数据库的 AES-256 密钥缓存在进程内存中，存储格式为 `x'<64hex_key><32hex_salt>'`。
 
+</div>
+
 ---
 
 ## 📋 命令行工具
+
+<div align="center">
 
 | 命令 | 描述 |
 |------|------|
@@ -114,11 +128,17 @@ wxecho export -n "张三"            # 按名称导出
 | `--top <n>` | 列出前 N 个会话（默认: 20） |
 | `--my-wxid <wxid>` | 自己的用户 ID（省略时自动检测） |
 
+</div>
+
 ---
 
 ## 📁 数据库结构
 
+<div align="center">
+
 解密后的数据库位于 `py/decrypted/`：
+
+</div>
 
 ```
 decrypted/
@@ -132,7 +152,11 @@ decrypted/
 └── ...
 ```
 
+<div align="center">
+
 每个联系人/群聊的消息存储在名为 `Msg_<md5(username)>` 的表中。
+
+</div>
 
 ---
 
@@ -157,6 +181,8 @@ decrypted/
 
 ## 🔗 相关项目
 
+<div align="center">
+
 | 项目 | 描述 |
 |------|------|
 | [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | 原项目 |
@@ -164,11 +190,17 @@ decrypted/
 | [Thearas/wechat-db-decrypt-macos](https://github.com/Thearas/wechat-db-decrypt-macos) | lldb 密钥提取 |
 | [ylytdeng/wechat-decrypt](https://github.com/ylytdeng/wechat-decrypt) | 原始内存搜索 |
 
+</div>
+
 ---
 
 ## 📜 许可证
 
+<div align="center">
+
 MIT License
+
+</div>
 
 ---
 

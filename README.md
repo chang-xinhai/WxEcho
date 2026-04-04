@@ -28,6 +28,8 @@
 
 ## ✨ Features
 
+<div align="center">
+
 | Feature | Description |
 |---------|-------------|
 | 🔑 **Key Extraction** | Extract encryption keys directly from running process memory |
@@ -37,16 +39,22 @@
 | 💬 **Group Chat Support** | Full support for group conversations |
 | 🍎 **Native macOS** | Built with Mach VM API, runs natively on Apple Silicon & Intel |
 
+</div>
+
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
+<div align="center">
+
 - macOS 11+
 - Desktop app 4.x (logged in, chat history synced)
 - Xcode Command Line Tools: `xcode-select --install`
 - Python 3.8+: `pip install pycryptodome`
+
+</div>
 
 ### Installation
 
@@ -85,6 +93,8 @@ wxecho export -n "John Doe"        # Export by name
 
 ## ⚙️ How It Works
 
+<div align="center">
+
 ```
 Running App Process ──key extraction──▶ keys.json ──decrypt──▶ plaintext SQLite ──export──▶ TXT/CSV/JSON
    (SQLCipher 4)                          (AES-256-CBC)        (.db files)           (chat history)
@@ -92,9 +102,13 @@ Running App Process ──key extraction──▶ keys.json ──decrypt──�
 
 The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4) with per-database AES-256 keys cached in process memory, stored as `x'<64hex_key><32hex_salt>'`.
 
+</div>
+
 ---
 
 ## 📋 CLI Commands
+
+<div align="center">
 
 | Command | Description |
 |---------|-------------|
@@ -114,11 +128,17 @@ The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4)
 | `--top <n>` | List top N conversations (default: 20) |
 | `--my-wxid <wxid>` | Your own user ID (auto-detected if omitted) |
 
+</div>
+
 ---
 
 ## 📁 Database Structure
 
+<div align="center">
+
 Decrypted databases in `py/decrypted/`:
+
+</div>
 
 ```
 decrypted/
@@ -132,7 +152,11 @@ decrypted/
 └── ...
 ```
 
+<div align="center">
+
 Messages for each contact/group are stored in tables named `Msg_<md5(username)>`.
+
+</div>
 
 ---
 
@@ -157,6 +181,8 @@ Yes. Export works the same way. Messages show sender's actual nickname/remark.
 
 ## 🔗 Related Projects
 
+<div align="center">
+
 | Project | Description |
 |---------|-------------|
 | [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | Original project |
@@ -164,11 +190,17 @@ Yes. Export works the same way. Messages show sender's actual nickname/remark.
 | [Thearas/wechat-db-decrypt-macos](https://github.com/Thearas/wechat-db-decrypt-macos) | lldb key extraction |
 | [ylytdeng/wechat-decrypt](https://github.com/ylytdeng/wechat-decrypt) | Original memory search |
 
+</div>
+
 ---
 
 ## 📜 License
 
+<div align="center">
+
 MIT License
+
+</div>
 
 ---
 
