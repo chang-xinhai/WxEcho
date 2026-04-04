@@ -29,7 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf landing/node_modules landing/package-lock.json
-          npm install
+          npm cache clean --force
+          npm install --prefer-offline=false
         working-directory: landing
 
       - name: Build
