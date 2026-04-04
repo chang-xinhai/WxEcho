@@ -1,5 +1,5 @@
 {
-  "name": "wxecho",
+  "name": "@walkerch/wxecho",
   "version": "1.0.0",
   "description": "macOS native chat history export tool with local database decryption support",
   "keywords": ["macos", "chat-export", "decrypt", "sqlite", "wxecho", "database", "cli"],
