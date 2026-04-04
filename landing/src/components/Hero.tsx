@@ -7,7 +7,7 @@ export default function Hero() {
   const { t } = useLanguage();
 
   const copyInstall = () => {
-    navigator.clipboard.writeText('npm install -g wxecho');
+    navigator.clipboard.writeText('npm install -g @walkerch/wxecho');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -29,7 +29,7 @@ export default function Hero() {
         <p className="tagline">{t.tagline}</p>
 
         <div className="install-command">
-          <code>npm install -g wxecho</code>
+          <code>npm install -g @walkerch/wxecho</code>
           <button className="copy-btn" onClick={copyInstall} aria-label={copied ? t.copied : t.copy}>
             <Icon name={copied ? 'check' : 'copy'} size={14} />
           </button>
@@ -45,7 +45,7 @@ export default function Hero() {
             GitHub
           </a>
           <a
-            href="https://www.npmjs.com/package/wxecho"
+            href="https://www.npmjs.com/package/@walkerch/wxecho"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-npm"
