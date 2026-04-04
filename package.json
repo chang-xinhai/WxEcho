@@ -1,6 +1,6 @@
 {
   "name": "@walkerch/wxecho",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "macOS native chat history export tool with local database decryption support",
   "keywords": [
     "macos",
