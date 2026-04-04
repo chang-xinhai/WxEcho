@@ -26,7 +26,7 @@
 
 ---
 
-## ✨ 功能特性
+<h2 align="center">✨ 功能特性</h2>
 
 <div align="center">
 
@@ -43,7 +43,7 @@
 
 ---
 
-## 🚀 快速开始
+<h2 align="center">🚀 快速开始</h2>
 
 ### 环境要求
 
@@ -91,7 +91,7 @@ wxecho export -n "张三"            # 按名称导出
 
 ---
 
-## ⚙️ 工作原理
+<h2 align="center">⚙️ 工作原理</h2>
 
 <div align="center">
 
@@ -106,7 +106,7 @@ wxecho export -n "张三"            # 按名称导出
 
 ---
 
-## 📋 命令行工具
+<h2 align="center">📋 命令行工具</h2>
 
 <div align="center">
 
@@ -132,7 +132,7 @@ wxecho export -n "张三"            # 按名称导出
 
 ---
 
-## 📁 数据库结构
+<h2 align="center">📁 数据库结构</h2>
 
 <div align="center">
 
@@ -160,7 +160,7 @@ decrypted/
 
 ---
 
-## ❓ 常见问题
+<h2 align="center">❓ 常见问题</h2>
 
 **Q: `task_for_pid failed` 怎么办？**
 请确保：(1) 使用 `sudo` 运行；(2) 应用已重新签名；(3) 应用正在运行且已登录。
@@ -179,13 +179,13 @@ decrypted/
 
 ---
 
-## 🔗 相关项目
+<h2 align="center">🔗 相关项目</h2>
 
 <div align="center">
 
 | 项目 | 描述 |
 |------|------|
-| [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | 原项目 |
+| [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | 参考项目 |
 | [L1en2407/wechat-decrypt](https://github.com/L1en2407/wechat-decrypt) | C 内存扫描器 |
 | [Thearas/wechat-db-decrypt-macos](https://github.com/Thearas/wechat-db-decrypt-macos) | lldb 密钥提取 |
 | [ylytdeng/wechat-decrypt](https://github.com/ylytdeng/wechat-decrypt) | 原始内存搜索 |
@@ -194,7 +194,7 @@ decrypted/
 
 ---
 
-## 📜 许可证
+<h2 align="center">📜 许可证</h2>
 
 <div align="center">
 

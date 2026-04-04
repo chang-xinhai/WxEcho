@@ -26,7 +26,7 @@
 
 ---
 
-## ✨ Features
+<h2 align="center">✨ Features</h2>
 
 <div align="center">
 
@@ -43,7 +43,7 @@
 
 ---
 
-## 🚀 Quick Start
+<h2 align="center">🚀 Quick Start</h2>
 
 ### Prerequisites
 
@@ -91,7 +91,7 @@ wxecho export -n "John Doe"        # Export by name
 
 ---
 
-## ⚙️ How It Works
+<h2 align="center">⚙️ How It Works</h2>
 
 <div align="center">
 
@@ -106,7 +106,7 @@ The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4)
 
 ---
 
-## 📋 CLI Commands
+<h2 align="center">📋 CLI Commands</h2>
 
 <div align="center">
 
@@ -132,7 +132,7 @@ The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4)
 
 ---
 
-## 📁 Database Structure
+<h2 align="center">📁 Database Structure</h2>
 
 <div align="center">
 
@@ -160,7 +160,7 @@ Messages for each contact/group are stored in tables named `Msg_<md5(username)>`
 
 ---
 
-## ❓ FAQ
+<h2 align="center">❓ FAQ</h2>
 
 **Q: `task_for_pid failed` — what to do?**
 Make sure: (1) running with `sudo`; (2) the app has been re-signed; (3) the app is running and logged in.
@@ -179,7 +179,7 @@ Yes. Export works the same way. Messages show sender's actual nickname/remark.
 
 ---
 
-## 🔗 Related Projects
+<h2 align="center">🔗 Related Projects</h2>
 
 <div align="center">
 
@@ -194,7 +194,7 @@ Yes. Export works the same way. Messages show sender's actual nickname/remark.
 
 ---
 
-## 📜 License
+<h2 align="center">📜 License</h2>
 
 <div align="center">
 
