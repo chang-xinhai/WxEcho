@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # wxecho CLI launcher
 
 # Find the script directory

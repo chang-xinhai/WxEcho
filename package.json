@@ -46,5 +46,8 @@
   },
   "os": [
     "darwin"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }
