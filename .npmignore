@@ -15,7 +15,6 @@ landing/
 
 # Documentation
 *.md
-!.md
 
 # Git
 .git/

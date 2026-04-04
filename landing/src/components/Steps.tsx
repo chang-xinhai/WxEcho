@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Icon from './Icon';
 
 export default function Steps() {
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
@@ -28,7 +29,7 @@ export default function Steps() {
     {
       title: '导出聊天',
       desc: '按联系人导出聊天记录为 TXT / CSV / JSON',
-      cmd: 'wxecho export -l',
+      cmd: 'wxecho export "联系人昵称"',
     },
   ];
 
@@ -46,8 +47,9 @@ export default function Steps() {
               <button
                 className="copy-btn-small"
                 onClick={() => copyCommand(i, step.cmd)}
+                aria-label={copiedStep === i ? '已复制' : '复制命令'}
               >
-                {copiedStep === i ? '✓' : '复制'}
+                <Icon name={copiedStep === i ? 'check' : 'copy'} size={14} />
               </button>
             </div>
           </div>

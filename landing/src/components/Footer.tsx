@@ -10,7 +10,7 @@ export default function Footer() {
         </a>
       </div>
       <p>基于 Mach VM API 和 SQLCipher 4 逆向工程</p>
-      <p className="footer-license">MIT License</p>
+      <p className="footer-license">WTFPL License</p>
     </footer>
   );
 }

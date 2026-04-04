@@ -1,8 +1,7 @@
-/* WeChat Export - Premium & Clean */
+/* WxEcho Landing - WeChat Green Theme */
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #fafbfc;
-  --bg-card: rgba(255, 255, 255, 0.9);
   --text-primary: #1a1a1a;
   --text-secondary: #576b95;
   --text-muted: #8590a6;
@@ -14,16 +13,12 @@
   --code-bg: #f5f7fa;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
   --shadow-hover: 0 8px 32px rgba(7, 193, 96, 0.12);
-  --panel-solid: #ffffff;
-  --line: rgba(0, 0, 0, 0.08);
-  --text: #1a1a1a;
-  --muted: #8590a6;
+  --badge-bg: rgba(7, 193, 96, 0.08);
 }
 
 [data-theme='dark'] {
   --bg-primary: #0d1117;
   --bg-secondary: #161b22;
-  --bg-card: rgba(22, 27, 34, 0.95);
   --text-primary: #e6edf3;
   --text-secondary: #8b949e;
   --text-muted: #6e7681;
@@ -35,10 +30,7 @@
   --code-bg: #1c2128;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-hover: 0 8px 32px rgba(7, 193, 96, 0.15);
-  --panel-solid: #161b22;
-  --line: rgba(240, 246, 252, 0.1);
-  --text: #e6edf3;
-  --muted: #6e7681;
+  --badge-bg: rgba(7, 193, 96, 0.12);
 }
 
 * {
@@ -82,7 +74,7 @@
 body {
   font: 16px / 1.6 ui-sans-serif, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", sans-serif;
   background: linear-gradient(160deg, #f8fdf9 0%, var(--bg-primary) 50%, #f7faf9 100%);
-  color: var(--text);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -100,8 +92,8 @@ body {
   top: 1.5rem;
   right: 1.5rem;
   z-index: 100;
-  background: var(--panel-solid);
-  border: 1px solid var(--line);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 50%;
   width: 44px;
   height: 44px;
@@ -138,9 +130,11 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.logo {
-  font-size: 4.5rem;
-  display: block;
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
   filter: drop-shadow(0 4px 16px rgba(7, 193, 96, 0.2));
 }
 
@@ -149,14 +143,14 @@ body {
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: var(--text);
+  color: var(--text-primary);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
 .tagline {
   font-size: 1.15rem;
-  color: var(--muted);
+  color: var(--text-muted);
   margin-bottom: 2rem;
   font-weight: 400;
 }
@@ -217,9 +211,9 @@ body {
 }
 
 .btn-github {
-  background: var(--panel-solid);
-  color: var(--text);
-  border: 1px solid var(--line);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
 }
 
 .btn-github:hover {
@@ -250,9 +244,9 @@ body {
   font-size: 12px;
   padding: 5px 12px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--panel-solid) 14%, transparent);
-  color: var(--muted);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg-primary) 14%, transparent);
+  color: var(--text-muted);
   letter-spacing: 0.2px;
 }
 
@@ -260,7 +254,7 @@ body {
 .features {
   padding: 80px 24px;
   background: var(--bg-secondary);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--border);
 }
 
 .features h2 {
@@ -268,13 +262,13 @@ body {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
   font-size: 2rem;
   margin-bottom: 0.75rem;
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .features-tagline {
   text-align: center;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 1rem;
   margin-bottom: 2.5rem;
 }
@@ -288,7 +282,7 @@ body {
 }
 
 .feature-card {
-  background: var(--bg-card);
+  background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: 16px;
   padding: 1.75rem;
@@ -304,21 +298,23 @@ body {
 }
 
 .feature-icon {
-  font-size: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.875rem;
-  display: block;
+  color: var(--accent);
 }
 
 .feature-card h3 {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .feature-card p {
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -335,7 +331,7 @@ body {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
   font-size: 2rem;
   margin-bottom: 2.5rem;
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -378,7 +374,7 @@ body {
 .step-content {
   flex: 1;
   min-width: 0;
-  background: var(--bg-card);
+  background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: 14px;
   padding: 1.25rem 1.5rem;
@@ -394,12 +390,12 @@ body {
   font-family: ui-serif, "New York", "Iowan Old Style", Palatino, "Book Antiqua", Georgia, serif;
   font-size: 1.3rem;
   margin-bottom: 0.35rem;
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .step-content p {
-  color: var(--muted);
+  color: var(--text-muted);
   margin-bottom: 0.6rem;
   font-size: 0.9rem;
 }
@@ -448,12 +444,12 @@ body {
 .footer {
   padding: 3rem 24px;
   text-align: center;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--border);
   background: var(--bg-secondary);
 }
 
 .footer p {
-  color: var(--muted);
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
 }
@@ -477,7 +473,7 @@ body {
 
 .footer-license {
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
 /* Responsive */

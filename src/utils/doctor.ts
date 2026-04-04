@@ -10,6 +10,11 @@ export async function doctor(): Promise<void> {
     { name: 'pycryptodome', cmd: 'python3 -c "import Crypto; print(Crypto.__version__)"', required: true },
   ];
 
+  // Additional informational checks (non-blocking)
+  const infoChecks = [
+    { name: '微信签名状态', cmd: 'codesign -d -v /Applications/WeChat.app 2>&1 || echo "NOT signed"', required: false },
+  ];
+
   let allPassed = true;
 
   for (const check of checks) {
@@ -23,6 +28,16 @@ export async function doctor(): Promise<void> {
       } else {
         console.log(`⚠ ${check.name} - 可选`);
       }
+    }
+  }
+
+  // Run informational checks
+  for (const check of infoChecks) {
+    try {
+      const output = execSync(check.cmd, { stdio: 'pipe' }).toString().trim();
+      console.log(`ℹ ${check.name}: ${output}`);
+    } catch {
+      console.log(`ℹ ${check.name}: 无法检测`);
     }
   }
 

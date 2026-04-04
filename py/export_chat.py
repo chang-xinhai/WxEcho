@@ -27,10 +27,7 @@ from config import load_config
 
 _cfg = load_config()
 DECRYPTED_DIR = _cfg["decrypted_dir"]
-CONTACT_DB = os.path.join(os.path.dirname(DECRYPTED_DIR), "decrypted", "contact", "contact.db")
-# Try alternative path
-if not os.path.exists(CONTACT_DB):
-    CONTACT_DB = os.path.join(DECRYPTED_DIR, "contact", "contact.db")
+CONTACT_DB = os.path.join(DECRYPTED_DIR, "contact", "contact.db")
 
 MY_WXID = None  # Auto-detected
 MY_NAME = "我"
@@ -88,7 +85,11 @@ def get_contact_display_name(username):
 
 
 def detect_my_wxid():
-    """Auto-detect current user's wxid by finding the most frequent sender across all messages."""
+    """Auto-detect current user's wxid by finding the most frequent sender across all messages.
+
+    Note: This is a heuristic based on message frequency. If a contact has sent more messages
+    than yourself, you may be misidentified as that contact. Use --my-wxid to override if needed.
+    """
     sender_count = {}
     name2id_cache = {}  # db_path -> {rowid: wxid}
 

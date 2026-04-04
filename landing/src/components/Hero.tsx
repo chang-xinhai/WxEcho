@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Icon from './Icon';
 
 export default function Hero() {
   const [copied, setCopied] = useState(false);
@@ -13,7 +14,7 @@ export default function Hero() {
     <section className="hero">
       <div className="hero-content">
         <div className="logo-container">
-          <span className="logo">💬</span>
+          <span className="logo-icon"><Icon name="chat" size={64} /></span>
         </div>
 
         <div className="badges">
@@ -27,8 +28,8 @@ export default function Hero() {
 
         <div className="install-command">
           <code>npm install -g wxecho</code>
-          <button className="copy-btn" onClick={copyInstall}>
-            {copied ? '✓' : '复制'}
+          <button className="copy-btn" onClick={copyInstall} aria-label={copied ? '已复制' : '复制命令'}>
+            <Icon name={copied ? 'check' : 'copy'} size={14} />
           </button>
         </div>
 

@@ -5,11 +5,10 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
-# For npm global install, find the global node_modules
-if [ -n "$NODE_PATH" ]; then
-  GLOBAL_ROOT="$(dirname "$(dirname "$NODE_PATH")")"
-  if [ -f "$GLOBAL_ROOT/lib/node_modules/wxecho/dist/cli.js" ]; then
-    exec node "$GLOBAL_ROOT/lib/node_modules/wxecho/dist/cli.js" "$@"
+# Try npm global prefix approach (most reliable for global installs)
+if NPM_PREFIX=$(npm prefix -g 2>/dev/null); then
+  if [ -f "$NPM_PREFIX/lib/node_modules/wxecho/dist/cli.js" ]; then
+    exec node "$NPM_PREFIX/lib/node_modules/wxecho/dist/cli.js" "$@"
   fi
 fi
 
