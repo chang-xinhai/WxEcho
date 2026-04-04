@@ -37,7 +37,7 @@
 | 📤 **Multi-format Export** | Export to TXT / CSV / JSON formats |
 | 🔍 **Fuzzy Search** | Search contacts by nickname or remarks |
 | 💬 **Group Chat Support** | Full support for group conversations |
-| 🍎 **Native macOS** | Built with Mach VM API, runs natively on Apple Silicon & Intel |
+| 🍎 **Native macOS** | Built with Mach VM API, runs natively on Apple Silicon |
 
 </div>
 
@@ -52,14 +52,13 @@
 - macOS 11+ on **Apple Silicon** (M1/M2/M3/M4...)
 - Desktop app 4.x (logged in, chat history synced)
 - Xcode Command Line Tools: `xcode-select --install`
-- Python 3.8+: `pip install pycryptodome`
 
 </div>
 
 ### Installation
 
 ```bash
-npm install -g wxecho
+npm install -g @walkerch/wxecho
 ```
 
 Or manually:
