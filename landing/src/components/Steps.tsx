@@ -28,8 +28,8 @@ export default function Steps() {
     },
     {
       title: '导出聊天',
-      desc: '按联系人导出聊天记录为 TXT / CSV / JSON',
-      cmd: 'wxecho export "联系人昵称"',
+      desc: '导出联系人 "Aurora" 的聊天记录为 TXT / CSV / JSON',
+      cmd: 'wxecho export "Aurora"',
     },
   ];
 
