@@ -16,8 +16,6 @@
   },
   "files": [
     "dist/cli.js",
-    "dist/commands/",
-    "dist/utils/",
     "bin/",
     "py/*.py",
     "py/*.c",

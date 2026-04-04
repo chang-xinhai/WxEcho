@@ -22,9 +22,9 @@
 
 > ⚠️ **免责声明**: 本工具仅供个人备份和教育学习使用。使用本工具可能违反相关平台的 服务条款。对于因使用本工具导致的账号封禁、数据丢失或法律后果，作者不承担任何责任。使用前请自行评估风险。
 
----
-
 </div>
+
+---
 
 ## ✨ 功能特性
 
@@ -51,26 +51,26 @@
 ### 安装
 
 ```bash
-# 通过 npm 安装（推荐）
 npm install -g wxecho
+```
 
-# 通过 Git 安装
+或手动安装：
+
+```bash
 git clone https://github.com/chang-xinhai/WxEcho.git
 cd WxEcho
-npm install
-npm run build
+npm install && npm run build
 ```
 
 ### 使用方法
 
 ```bash
-# 步骤 1: 重新签名应用（允许内存读取）
-# 先退出应用，然后运行：
+# 步骤 1: 重新签名应用
 sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # 重新打开并登录
 
-# 步骤 2: 提取密钥（需要 sudo）
+# 步骤 2: 提取密钥
 sudo wxecho keys
 
 # 步骤 3: 解密数据库
@@ -78,8 +78,7 @@ wxecho decrypt
 
 # 步骤 4: 导出聊天记录
 wxecho export -l                    # 列出所有会话
-wxecho export -n "张三"             # 按名称导出
-wxecho export -n "张三" -o ~/Downloads/my_chat  # 自定义输出目录
+wxecho export -n "张三"            # 按名称导出
 ```
 
 ---
@@ -87,31 +86,11 @@ wxecho export -n "张三" -o ~/Downloads/my_chat  # 自定义输出目录
 ## ⚙️ 工作原理
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    运行中的应用进程                               │
-│                      (SQLCipher 4)                               │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ 密钥提取 (Mach VM API)
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       keys.json                                  │
-│                   (AES-256-CBC 密钥)                             │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ 数据库解密
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    明文 SQLite 数据库                             │
-│                      (.db 文件)                                   │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ 导出
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│              TXT / CSV / JSON                                    │
-│                 (聊天记录)                                       │
-└─────────────────────────────────────────────────────────────────┘
+运行中的应用进程 ──密钥提取──▶ keys.json ──解密──▶ 明文 SQLite ──导出──▶ TXT/CSV/JSON
+   (SQLCipher 4)                     (AES-256-CBC)      (.db 文件)       (聊天记录)
 ```
 
-应用使用 [WCDB](https://github.com/nicklockwood/wcdb)（基于 SQLCipher 4），每个数据库的 AES-256 密钥缓存在进程内存中，存储格式为 `x'<64hex_key><32hex_salt>'`。本工具使用 Mach VM API 扫描进程内存，匹配密钥模式，验证正确性，然后逐页解密。
+应用使用 [WCDB](https://github.com/nicklockwood/wcdb)（基于 SQLCipher 4），每个数据库的 AES-256 密钥缓存在进程内存中，存储格式为 `x'<64hex_key><32hex_salt>'`。
 
 ---
 
@@ -143,16 +122,13 @@ wxecho export -n "张三" -o ~/Downloads/my_chat  # 自定义输出目录
 
 ```
 decrypted/
-├── contact/contact.db          # 联系人（昵称、备注、头像URL等）
+├── contact/contact.db          # 联系人
 ├── session/session.db          # 会话列表
 ├── message/message_0.db        # 聊天消息（按时间分片）
-├── message/message_1.db
-├── message/message_2.db
 ├── message/message_fts.db     # 全文搜索索引
 ├── message/media_0.db         # 语音消息
 ├── sns/sns.db                  # 朋友圈
 ├── favorite/favorite.db        # 收藏
-├── emoticon/emoticon.db        # 表情包
 └── ...
 ```
 
@@ -163,19 +139,19 @@ decrypted/
 ## ❓ 常见问题
 
 **Q: `task_for_pid failed` 怎么办？**
-请确保：(1) 使用 `sudo` 运行；(2) 应用已重新签名（步骤 1）；(3) 应用正在运行且已登录。
+请确保：(1) 使用 `sudo` 运行；(2) 应用已重新签名；(3) 应用正在运行且已登录。
 
 **Q: 更新应用后还能用吗？**
-更新会恢复原始代码签名。请重新运行步骤 1 进行签名。
+更新会恢复原始代码签名，请重新运行签名步骤。
 
 **Q: 为什么有些消息显示 `[Compressed Content]`？**
-部分消息使用 zstd 压缩（`WCDB_CT_message_content=4`）。大多数文本消息不受影响。
+部分消息使用 zstd 压缩。大多数文本消息不受影响。
 
 **Q: 如何导出图片/视频/音频？**
-本工具仅导出文本记录。媒体文件存储在应用文件目录（`xwechat_files/.../Message/`）中，可通过 `message_resource.db` 关联路径。
+本工具仅导出文本记录。媒体文件在 `xwechat_files/.../Message/`，可通过 `message_resource.db` 关联。
 
 **Q: 支持群聊吗？**
-支持。群聊存储在名为 `Msg_<md5(chatroom_id)>` 的表中，导出方式相同。每条消息会显示发送者的真实昵称/备注。
+支持。导出方式相同，每条消息会显示发送者的真实昵称/备注。
 
 ---
 

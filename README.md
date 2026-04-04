@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  <img src="./landing/public/screenshot.png" alt="WxEcho Screenshot" width="800" />
+  <img src="https://raw.githubusercontent.com/chang-xinhai/WxEcho/main/landing/public/screenshot.png" alt="WxEcho Screenshot" width="800" />
 </p>
 
 <p align="center">
@@ -22,9 +22,9 @@
 
 > ⚠️ **DISCLAIMER**: This tool is intended for personal backup and educational purposes only. Using it may violate the Terms of Service of the messaging platform in question. The author is not responsible for any account suspension, data loss, or legal consequences resulting from the use of this software. Use at your own risk.
 
----
-
 </div>
+
+---
 
 ## ✨ Features
 
@@ -51,26 +51,26 @@
 ### Installation
 
 ```bash
-# Via npm (Recommended)
 npm install -g wxecho
+```
 
-# Via Git
+Or manually:
+
+```bash
 git clone https://github.com/chang-xinhai/WxEcho.git
 cd WxEcho
-npm install
-npm run build
+npm install && npm run build
 ```
 
 ### Usage
 
 ```bash
-# Step 1: Re-sign the app (allow memory reading)
-# Exit the app first, then run:
+# Step 1: Re-sign the app
 sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # Re-open and log in
 
-# Step 2: Extract Keys (requires sudo)
+# Step 2: Extract Keys
 sudo wxecho keys
 
 # Step 3: Decrypt Databases
@@ -78,8 +78,7 @@ wxecho decrypt
 
 # Step 4: Export Chat History
 wxecho export -l                    # List all conversations
-wxecho export -n "John Doe"         # Export by name
-wxecho export -n "John Doe" -o ~/Downloads/my_chat  # Custom output dir
+wxecho export -n "John Doe"        # Export by name
 ```
 
 ---
@@ -87,31 +86,11 @@ wxecho export -n "John Doe" -o ~/Downloads/my_chat  # Custom output dir
 ## ⚙️ How It Works
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Running App Process                           │
-│                      (SQLCipher 4)                               │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ Key Extraction (Mach VM API)
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       keys.json                                  │
-│                   (AES-256-CBC Key)                              │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ Database Decryption
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    plaintext SQLite                              │
-│                      (.db files)                                 │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │ Export
-                          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│              TXT / CSV / JSON                                    │
-│                 (Chat History)                                   │
-└─────────────────────────────────────────────────────────────────┘
+Running App Process ──key extraction──▶ keys.json ──decrypt──▶ plaintext SQLite ──export──▶ TXT/CSV/JSON
+   (SQLCipher 4)                          (AES-256-CBC)        (.db files)           (chat history)
 ```
 
-The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4) with per-database AES-256 keys cached in process memory, stored as `x'<64hex_key><32hex_salt>'`. This tool uses the Mach VM API to scan process memory, match key patterns, verify correctness, then decrypt pages one by one.
+The app uses [WCDB](https://github.com/nicklockwood/wcdb) (based on SQLCipher 4) with per-database AES-256 keys cached in process memory, stored as `x'<64hex_key><32hex_salt>'`.
 
 ---
 
@@ -143,16 +122,13 @@ Decrypted databases in `py/decrypted/`:
 
 ```
 decrypted/
-├── contact/contact.db          # Contacts (nickname, remark, avatar URL)
+├── contact/contact.db          # Contacts
 ├── session/session.db          # Conversation list
-├── message/message_0.db        # Chat messages (sharded by time)
-├── message/message_1.db
-├── message/message_2.db
-├── message/message_fts.db     # Full-text search index
+├── message/message_0.db        # Chat messages (sharded)
+├── message/message_fts.db     # Full-text search
 ├── message/media_0.db         # Voice messages
 ├── sns/sns.db                  # Moments
 ├── favorite/favorite.db        # Favorites
-├── emoticon/emoticon.db        # Stickers
 └── ...
 ```
 
@@ -163,19 +139,19 @@ Messages for each contact/group are stored in tables named `Msg_<md5(username)>`
 ## ❓ FAQ
 
 **Q: `task_for_pid failed` — what to do?**
-Make sure: (1) running with `sudo`; (2) the app has been re-signed (Step 1); (3) the app is running and logged in.
+Make sure: (1) running with `sudo`; (2) the app has been re-signed; (3) the app is running and logged in.
 
 **Q: Does this work after an app update?**
-Updates restore the original code signature. Re-run Step 1 to re-sign.
+Updates restore the original code signature. Re-run the re-sign step.
 
 **Q: Why do some messages show `[Compressed Content]`?**
-Some messages use zstd compression (`WCDB_CT_message_content=4`). Most text messages are unaffected.
+Some messages use zstd compression. Most text messages are unaffected.
 
 **Q: How do I export images/videos/audio?**
-This tool exports text records only. Media files are stored in the app's file directory (`xwechat_files/.../Message/`). You can correlate paths via `message_resource.db`.
+This tool exports text records only. Media files are in `xwechat_files/.../Message/`, correlate via `message_resource.db`.
 
 **Q: Are group chats supported?**
-Yes. Group chats are stored in tables named `Msg_<md5(chatroom_id)>`. Export works the same way.
+Yes. Export works the same way. Messages show sender's actual nickname/remark.
 
 ---
 
