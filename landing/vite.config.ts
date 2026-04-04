@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/WxEcho/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
