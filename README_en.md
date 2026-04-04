@@ -49,10 +49,7 @@
 
 <div align="center">
 
-- macOS 11+
-- Desktop app 4.x (logged in, chat history synced)
-- Xcode Command Line Tools: `xcode-select --install`
-- Python 3.8+: `pip install pycryptodome`
+macOS 11+ · Desktop app 4.x (logged in, chat history synced) · Xcode Command Line Tools · Python 3.8+
 
 </div>
 
