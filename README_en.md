@@ -24,6 +24,8 @@
 
 ---
 
+</div>
+
 ## ✨ Features
 
 | Feature | Description |

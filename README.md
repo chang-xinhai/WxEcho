@@ -24,6 +24,8 @@
 
 ---
 
+</div>
+
 ## ✨ Features
 
 | Feature | Description |
@@ -93,7 +95,7 @@ wxecho export -n "John Doe" -o ~/Downloads/my_chat  # Custom output dir
                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                       keys.json                                  │
-│                   (AES-256-CBC Key)                             │
+│                   (AES-256-CBC Key)                              │
 └─────────────────────────┬───────────────────────────────────────┘
                           │ Database Decryption
                           ▼
