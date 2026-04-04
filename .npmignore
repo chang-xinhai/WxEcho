@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+landing/node_modules/
+landing/dist/
+
+# Source files (only published in dist)
+src/
+
+# Development files
+scripts/
+landing/
+
+# Documentation
+*.md
+!.md
+
+# Git
+.git/
+.gitignore
+
+# Environment
+.env*
+.env
+
+# macOS
+.DS_Store
+
+# Test files
+*.test.ts
+*.spec.ts
+__tests__/
+
+# TypeScript
+*.ts.map
+tsconfig.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# User data (should not be published)
+py/all_keys.json
+py/config.json
+py/decrypted/

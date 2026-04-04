@@ -1,0 +1,22 @@
+#!/bin/bash
+# wechat-export CLI launcher
+
+# Find the script directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(dirname "$SCRIPT_DIR")"
+
+# For npm global install, find the global node_modules
+if [ -n "$NODE_PATH" ]; then
+  GLOBAL_ROOT="$(dirname "$(dirname "$NODE_PATH")")"
+  if [ -f "$GLOBAL_ROOT/lib/node_modules/wechat-export-macos/dist/cli.js" ]; then
+    exec node "$GLOBAL_ROOT/lib/node_modules/wechat-export-macos/dist/cli.js" "$@"
+  fi
+fi
+
+# For local development, check if pre-built dist exists
+if [ -f "$ROOT_DIR/dist/cli.js" ]; then
+  exec node "$ROOT_DIR/dist/cli.js" "$@"
+fi
+
+# Fallback: use npx tsx to run TypeScript directly
+exec npx tsx "$ROOT_DIR/src/cli.ts" "$@"

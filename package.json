@@ -1,0 +1,49 @@
+{
+  "name": "wechat-export-macos",
+  "version": "1.0.0",
+  "description": "macOS 微信聊天记录一键解密导出工具",
+  "keywords": ["wechat", "macos", "chat-export", "decrypt", "wcdb", "sqlite"],
+  "license": "WTFPL",
+  "author": "Xinhai Chang <changxinhai@pku.edu.cn>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chang-xinhai/wechat-export-macos"
+  },
+  "type": "module",
+  "main": "./dist/cli.js",
+  "bin": {
+    "wechat-export": "./bin/wechat-export"
+  },
+  "files": [
+    "dist/",
+    "bin/",
+    "py/*.py",
+    "py/*.c",
+    "py/find_all_keys_macos"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build-cli.ts",
+    "build:landing": "cd landing && npm install && npm run build",
+    "build:all": "npm run build && npm run build:landing",
+    "prepublishOnly": "npm run build",
+    "postinstall": "bash scripts/postinstall.sh",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "esbuild": "^0.21.0",
+    "tsx": "^4.15.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.8"
+  },
+  "os": [
+    "darwin"
+  ]
+}
