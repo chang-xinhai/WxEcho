@@ -185,7 +185,7 @@ Yes. Export works the same way. Messages show sender's actual nickname/remark.
 
 | Project | Description |
 |---------|-------------|
-| [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | Original project |
+| [ydotdog/wechat-export-macos](https://github.com/ydotdog/wechat-export-macos) | Reference project |
 | [L1en2407/wechat-decrypt](https://github.com/L1en2407/wechat-decrypt) | C memory scanner |
 | [Thearas/wechat-db-decrypt-macos](https://github.com/Thearas/wechat-db-decrypt-macos) | lldb key extraction |
 | [ylytdeng/wechat-decrypt](https://github.com/ylytdeng/wechat-decrypt) | Original memory search |
