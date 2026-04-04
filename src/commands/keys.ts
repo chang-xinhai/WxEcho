@@ -13,7 +13,7 @@ const PY_DIR = path.join(PKG_ROOT, 'py');
 
 export async function runKeys(this: Command): Promise<void> {
   const opts = this.opts() as { output?: string };
-  const outputFile = opts.output || 'all_keys.json';
+  const outputFile = opts.output || path.join(PY_DIR, 'all_keys.json');
   const binaryPath = path.join(PY_DIR, 'find_all_keys_macos');
 
   console.log('正在从微信进程提取密钥...\n');
