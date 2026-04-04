@@ -76,9 +76,11 @@ npm install && npm run build
 sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # Re-open and log in
+```
 
 > **Alternative:** Disable SIP (`csrutil disable` in Recovery Mode) — no re-signing needed, but affects system-wide security.
 
+```bash
 # Step 2: Extract Keys
 wxecho keys
 

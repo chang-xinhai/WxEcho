@@ -74,9 +74,11 @@ npm install && npm run build
 sudo codesign --force --deep --sign - /Applications/WeChat.app
 
 # 重新打开并登录
+```
 
 > **替代方案：** 关闭 SIP（`csrutil disable`），则无需重签，但影响范围更大。
 
+```bash
 # 步骤 2: 提取密钥
 wxecho keys
 
