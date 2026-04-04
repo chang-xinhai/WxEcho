@@ -168,7 +168,7 @@ def _auto_detect_db_dir_linux():
 def auto_detect_db_dir():
     if _SYSTEM == "windows":
         return _auto_detect_db_dir_windows()
-    if _SYSTEM == "linux":
+    if _SYSTEM in ("linux", "darwin"):
         return _auto_detect_db_dir_linux()
     return None
 
