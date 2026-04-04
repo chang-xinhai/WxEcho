@@ -111,6 +111,8 @@ def _auto_detect_db_dir_linux():
     seen = set()
     candidates = []
     search_roots = [
+        # macOS: ~/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files
+        os.path.expanduser("~/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files"),
         os.path.expanduser("~/Documents/xwechat_files"),
     ]
     # sudo 运行时，~ 展开为 /root；回退到实际用户的 home
@@ -123,7 +125,13 @@ def _auto_detect_db_dir_linux():
         except KeyError:
             sudo_home = None
         if sudo_home:
+            # macOS WeChat container path
+            container_fallback = os.path.join(
+                sudo_home, "Library", "Containers", "com.tencent.xinWeChat", "Data", "Documents", "xwechat_files"
+            )
             fallback = os.path.join(sudo_home, "Documents", "xwechat_files")
+            if container_fallback not in search_roots:
+                search_roots.insert(0, container_fallback)
             if fallback not in search_roots:
                 search_roots.append(fallback)
 
