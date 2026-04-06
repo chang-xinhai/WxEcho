@@ -27,7 +27,7 @@ WxEcho 项目的 Claude Code Agent 工作规范与上下文文档。
 ### 支持版本
 
 - macOS 11+（**Apple Silicon only**，M1/M2/M3/M4...）
-- WeChat 4.x（已测试 WeChat 4.1.5.240）
+- WeChat 4.x（已测试 WeChat 4.1.7.1 / 4.1.5.240）
 
 ---
 

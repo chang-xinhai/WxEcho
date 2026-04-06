@@ -96,7 +96,8 @@ wxecho export -n "John Doe"        # Export by name
 
 | WeChat Version | Status |
 |----------------|--------|
-| 4.x (latest tested: 4.1.5.240) | ✅ Tested |
+| 4.x (latest tested: 4.1.7.1) | ✅ Tested |
+| 4.1.5.240 | ✅ Tested |
 
 npm package last updated: 2026-04-04 (v1.0.6)
 
