@@ -21,6 +21,10 @@ import json
 import csv
 import hashlib
 import argparse
+import subprocess
+import shutil
+import html
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 
 from config import load_config
@@ -40,6 +44,124 @@ MSG_TYPES = {
 }
 
 MEDIA_TYPES = {3, 34, 43, 47}
+
+
+def strip_sender_prefix(content):
+    """Strip leading sender prefix in group-message payloads."""
+    if not isinstance(content, str):
+        return content
+    return re.sub(r'^(wxid_[a-zA-Z0-9]+|[a-zA-Z][a-zA-Z0-9_-]*@chatroom):\n?', '', content)
+
+
+def xml_text(elem, path):
+    """Get trimmed text from XML path."""
+    node = elem.find(path)
+    if node is None or node.text is None:
+        return ""
+    return html.unescape(node.text.strip())
+
+
+def decode_message_blob(blob):
+    """Decode message blob as UTF-8 text, optionally via zstd."""
+    if not isinstance(blob, (bytes, bytearray, memoryview)):
+        return blob if isinstance(blob, str) else ""
+
+    raw = bytes(blob)
+    if not raw:
+        return ""
+
+    for encoding in ("utf-8", "utf-16le", "utf-16be"):
+        try:
+            text = raw.decode(encoding)
+            if "\x00" not in text:
+                return text
+        except UnicodeDecodeError:
+            pass
+
+    try:
+        import zstandard as zstd
+
+        text = zstd.ZstdDecompressor().decompress(raw).decode("utf-8")
+        return text
+    except Exception:
+        pass
+
+    zstd_bin = shutil.which("zstd")
+    if zstd_bin:
+        try:
+            proc = subprocess.run(
+                [zstd_bin, "-d", "-q", "-c"],
+                input=raw,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                check=True,
+            )
+            return proc.stdout.decode("utf-8")
+        except Exception:
+            pass
+
+    return ""
+
+
+def parse_app_message(content):
+    """Parse WeChat app message XML."""
+    if not content or "<appmsg" not in content:
+        return None
+
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError:
+        return None
+
+    appmsg = root.find("appmsg") if root.tag != "appmsg" else root
+    if appmsg is None:
+        return None
+
+    return {
+        "type": xml_text(appmsg, "type"),
+        "title": xml_text(appmsg, "title"),
+        "des": xml_text(appmsg, "des"),
+        "refer_display_name": xml_text(appmsg, "refermsg/displayname"),
+        "refer_from_usr": xml_text(appmsg, "refermsg/fromusr"),
+        "refer_content": xml_text(appmsg, "refermsg/content"),
+    }
+
+
+def render_plain_text(content):
+    """Best-effort rendering of raw message content to readable text."""
+    content = strip_sender_prefix(content or "").strip()
+    app = parse_app_message(content)
+    if not app:
+        return html.unescape(content)
+
+    if app["type"] == "57":
+        title = app["title"] or "[引用]"
+        refer_sender = app["refer_display_name"] or app["refer_from_usr"] or "未知"
+        refer_content = render_plain_text(app["refer_content"])
+        refer_content = re.sub(r"\s+", " ", refer_content).strip()
+        if refer_content:
+            return f"{title}（引用：{refer_sender}:{refer_content}）"
+        return title
+
+    if app["title"]:
+        return app["title"]
+    if app["des"]:
+        return app["des"]
+    return html.unescape(content)
+
+
+def normalize_message_content(raw_content):
+    """Normalize DB message content into readable plain text."""
+    if isinstance(raw_content, str):
+        return render_plain_text(raw_content)
+
+    if isinstance(raw_content, (bytes, bytearray, memoryview)):
+        decoded = decode_message_blob(raw_content)
+        if decoded:
+            return render_plain_text(decoded)
+        return "[压缩内容未解码]"
+
+    return ""
 
 
 def get_default_output_dir(name):
@@ -250,12 +372,7 @@ def export_chat(contact_username, contact_display_name, output_dir):
                 else:
                     sender = get_contact_display_name(sender_wxid)
 
-                content = row[5] or ""
-                if isinstance(content, bytes):
-                    content = "[压缩内容]"
-                else:
-                    # Strip leading wxid prefix: "wxid_xxx:\n..."
-                    content = re.sub(r'^wxid_[a-zA-Z0-9]+:\n?', '', content)
+                content = normalize_message_content(row[5] or "")
 
                 all_messages.append({
                     "time": datetime.fromtimestamp(row[3], tz=CST).strftime(
