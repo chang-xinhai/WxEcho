@@ -27,7 +27,7 @@ export default function VersionSupport() {
         </table>
       </div>
       <p className="version-note">
-        {t.versionNpmNote} 2026-04-04 (v1.0.6)
+        {t.versionNpmNote} 2026-04-06 (v1.1.1)
       </p>
     </section>
   );
