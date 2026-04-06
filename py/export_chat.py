@@ -140,7 +140,7 @@ def render_plain_text(content):
         refer_content = render_plain_text(app["refer_content"])
         refer_content = re.sub(r"\s+", " ", refer_content).strip()
         if refer_content:
-            return f"{title}（引用：{refer_sender}:{refer_content}）"
+            return f"{title}\n> {refer_sender}：{refer_content}"
         return title
 
     if app["title"]:
