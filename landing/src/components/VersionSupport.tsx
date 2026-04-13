@@ -16,7 +16,7 @@ export default function VersionSupport() {
           </thead>
           <tbody>
             <tr>
-              <td>4.x (latest tested: 4.1.7.1)</td>
+              <td>4.x (latest tested: 4.1.8.106)</td>
               <td>✅ {t.versionTested}</td>
             </tr>
             <tr>
